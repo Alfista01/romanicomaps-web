@@ -13,6 +13,30 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://www.romanicomaps.com/mapa-romanico-espana.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.romanicomaps.com/iglesias-romanicas.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.romanicomaps.com/rutas-romanicas.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.romanicomaps.com/monasterios-romanicos.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://www.romanicomaps.com/aviso-legal.html</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>yearly</changefreq>
