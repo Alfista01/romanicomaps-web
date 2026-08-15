@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.romanicomaps",
+      "sha256_cert_fingerprints": [
+        "DB:52:3B:D8:12:31:6A:7D:D4:83:96:E4:37:9A:98:30:26:07:FF:1C:5C:65:32:E8:05:26:0A:CB:98:B3:FD:D7",
+        "58:94:37:63:72:A2:9C:6C:3F:68:A8:47:D5:8A:79:8E:31:B1:2C:E3:71:FB:60:2F:95:49:F0:C2:18:F6:04:6A"
+      ]
+    }
+  }
+]
