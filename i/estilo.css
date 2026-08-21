@@ -1,0 +1,35 @@
+
+:root{--piedra:#EAE3D5;--piedra-2:#DED5C3;--linea:#C5B79F;--tinta:#221E17;
+  --tinta-2:#5A5141;--almagre:#9B3A2E;--oro:#B0863C;--max:720px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--piedra);color:var(--tinta);
+  font-family:"EB Garamond",Georgia,serif;font-size:18px;line-height:1.6}
+.env{max-width:var(--max);margin:0 auto;padding:24px 20px 56px}
+header{border-bottom:1px solid var(--linea);padding-bottom:14px;margin-bottom:22px}
+header a{color:var(--tinta-2);text-decoration:none;font-family:"Marcellus SC",serif;
+  letter-spacing:.06em;font-size:15px}
+.sitio{display:flex;align-items:center;gap:10px}
+.sitio img{height:30px;width:auto}
+h1{font-family:"Marcellus",serif;font-size:31px;line-height:1.25;margin:16px 0 6px}
+.lugar{font-family:"Marcellus SC",serif;letter-spacing:.07em;color:var(--almagre);
+  font-size:14px;text-transform:uppercase}
+figure{margin:20px 0;border:1px solid var(--linea);background:var(--piedra-2)}
+figure img{display:block;width:100%;height:auto}
+dl{margin:26px 0;border-top:1px solid var(--linea)}
+.fila{display:grid;grid-template-columns:190px 1fr;gap:16px;padding:13px 0;
+  border-bottom:1px solid var(--linea)}
+dt{font-family:"Marcellus SC",serif;letter-spacing:.05em;font-size:14px;
+  color:var(--tinta-2);text-transform:uppercase;padding-top:2px}
+dd{margin:0}
+.cta{margin-top:34px;padding:22px;border:1px solid var(--linea);
+  background:var(--piedra-2);text-align:center}
+.cta h2{font-family:"Marcellus",serif;font-size:21px;font-weight:400;margin-bottom:6px}
+.cta p{color:var(--tinta-2);font-size:16px;margin-bottom:16px}
+.botones{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:11px 22px;background:var(--almagre);color:#fff;
+  text-decoration:none;font-family:"Marcellus SC",serif;letter-spacing:.06em;font-size:15px}
+.btn.sec{background:transparent;color:var(--almagre);border:1px solid var(--almagre)}
+footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--linea);
+  color:var(--tinta-2);font-size:14px;text-align:center}
+footer a{color:var(--almagre)}
+@media(max-width:560px){.fila{grid-template-columns:1fr;gap:3px}h1{font-size:26px}}
