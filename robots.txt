@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.romanicomaps.com/sitemap.xml
+Sitemap: https://romanicomaps.com/i/sitemap.xml
