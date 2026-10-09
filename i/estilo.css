@@ -29,8 +29,6 @@ dd{margin:0}
 .btn{display:inline-block;padding:11px 22px;background:var(--almagre);color:#fff;
   text-decoration:none;font-family:"Marcellus SC",serif;letter-spacing:.06em;font-size:15px}
 .btn.sec{background:transparent;color:var(--almagre);border:1px solid var(--almagre)}
-.fuente{margin:-12px 0 0;font-size:15px;color:var(--tinta-2)}
-.fuente a{color:var(--almagre)}
 footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--linea);
   color:var(--tinta-2);font-size:14px;text-align:center}
 footer a{color:var(--almagre)}
