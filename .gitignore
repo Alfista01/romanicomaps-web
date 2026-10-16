@@ -1,3 +1,5 @@
 _src/
 _build_site.py
 .DS_Store
+_fichas/muestra/
+__pycache__/
