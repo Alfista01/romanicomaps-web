@@ -56,5 +56,17 @@ fi
 # 5. Publicar: fichas y estado en un único commit (GitHub Pages sirve main).
 git add -A i _fichas/estado
 git commit -q -m "fichas web: actualización $HOY" -m "$DETALLE" -m "$FIRMA"
-git push -q origin HEAD:main
+# Push con reintentos: un corte breve de red no debe tirar la publicación.
+# Si falla, deja en el log un diagnóstico (¿se llega a GitHub y a otra web?).
+PUSH_OK=0
+for INTENTO in 1 2 3 4; do
+  if git push -q origin HEAD:main; then PUSH_OK=1; break; fi
+  echo "Aviso: push fallido (intento $INTENTO/4, $(date '+%T')). Diagnóstico de red:"
+  for URL in https://github.com https://www.google.com; do
+    curl -sS -o /dev/null -m 10 -w "  $URL -> HTTP %{http_code} en %{time_total}s\n" "$URL" 2>&1 \
+      || echo "  $URL -> sin conexión"
+  done
+  if [ "$INTENTO" -lt 4 ]; then sleep 30; fi
+done
+[ "$PUSH_OK" -eq 1 ] || { echo "ERROR: push a GitHub fallido tras 4 intentos (ver diagnóstico de red arriba)"; exit 1; }
 echo "RESULTADO: publicado | $CAMBIOS ficheros · $DETALLE"
