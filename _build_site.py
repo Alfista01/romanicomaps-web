@@ -71,8 +71,10 @@ FAQ = [
      f"expandir la comunidad. Cuesta {PRECIO_PRIMER_ANIO} el primer año y, después, "
      f"{PRECIO_RENOVACION} al año. Se gestiona desde la tienda de tu dispositivo."),
     ("¿Puedo usar Románico Maps para preparar rutas románicas?",
-     "Sí. Puedes buscar lugares cercanos, guardar favoritos y abrir la ubicación en tu app de mapas "
-     "para organizar rutas románicas por provincias, comarcas o zonas de viaje."),
+     "En un futuro podrás dar de alta rutas románicas propias o seguir rutas recomendadas por zonas y "
+     "duraciones específicas. En este momento, Románico Maps solo geolocaliza iglesias y permite pasar la "
+     "ubicación a tu aplicación de navegación del móvil. Románico Maps puede serte muy útil como "
+     "herramienta de registro de favoritas y llevarlas seleccionadas de casa."),
     ("¿Qué tipo de patrimonio incluye la app?",
      "Principalmente iglesias, ermitas, monasterios, colegiatas y catedrales románicas, además de "
      "templos prerrománicos, cada uno con su ficha y su ubicación."),
