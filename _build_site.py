@@ -271,11 +271,21 @@ def faq_html():
     return "\n".join(bloques)
 
 
+def tiendas_html():
+    """Insignias oficiales (Apple Marketing Tools y Google Play), sin modificar, en un marco claro."""
+    return ('      <div class="marco-tiendas">\n'
+            f'        <a class="insignia" href="{APP_URL}"><img src="img/tiendas/app-store-es.svg" '
+            'alt="Descárgalo en el App Store" width="144" height="48"></a>\n'
+            f'        <a class="insignia" href="{PLAY_URL}"><img src="img/tiendas/google-play-es.png" '
+            'alt="Disponible en Google Play" width="162" height="48"></a>\n'
+            '      </div>')
+
+
 def portada():
     css = (SRC / "portada.css").read_text(encoding="utf-8")
     cuerpo = sin_comentario_inicial((SRC / "portada.html").read_text(encoding="utf-8"))
     cuerpo = rellenar(cuerpo, {
-        "APP_URL": APP_URL, "PLAY_URL": PLAY_URL, "EMAIL": EMAIL, "FAQ": faq_html(),
+        "TIENDAS": tiendas_html(), "EMAIL": EMAIL, "FAQ": faq_html(),
         "QR_APP": qr_svg(APP_URL), "QR_PLAY": qr_svg(PLAY_URL),
         "PRECIO_PRIMER_ANIO": PRECIO_PRIMER_ANIO, "PRECIO_RENOVACION": PRECIO_RENOVACION,
         "ANIO": str(HOY.year),
