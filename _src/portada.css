@@ -1,0 +1,196 @@
+/* Portada · estilo «Códice». Se incrusta en index.html al generar el sitio.
+   Paleta y tipografías de la marca: pergamino, tinta y almagre. */
+:root{--pergamino:#F1EADB;--pergamino-claro:#F8F3E8;--pergamino-oscuro:#E8DEC8;--piedra:#D9CCAF;
+  --linea:#CDBF9F;--tinta:#231D15;--tinta-2:#4F4535;--almagre:#9B3A2E;--almagre-claro:#E3A08F;--max:1200px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--pergamino);color:var(--tinta);font-family:"EB Garamond",Georgia,serif;
+  font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--almagre)}a:hover{color:#6E2219}
+:focus-visible{outline:3px solid var(--almagre);outline-offset:3px}
+img{max-width:100%}
+h1,h2,h3{font-weight:400;margin:0}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+.rubrica{font-family:"Marcellus SC",serif;letter-spacing:.3em;font-size:16px;color:var(--almagre);margin:0}
+.folio{padding:96px 0}
+.folio--oscuro{background:var(--pergamino-oscuro)}
+.folio h2{font-size:clamp(34px,4.2vw,56px);line-height:1.08;margin-top:20px}
+.folio h2 em{color:var(--almagre)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 26px;
+  text-decoration:none;font-family:"Marcellus SC",serif;font-size:18px;letter-spacing:.04em}
+.btn:hover{filter:brightness(1.12)}
+.btn--tinta{background:var(--tinta);color:var(--pergamino-claro)}
+.btn--tinta:hover{color:var(--pergamino-claro)}
+.btn--almagre{background:var(--almagre);color:var(--pergamino-claro)}
+.btn--almagre:hover{color:var(--pergamino-claro)}
+.btn--linea{border:1.5px solid var(--tinta);color:var(--tinta)}
+.tiendas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:36px}
+.arco{border-radius:999px 999px 0 0;overflow:hidden}
+.arco img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Cabecera */
+.barra{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;
+  padding-top:20px;padding-bottom:20px;border-bottom:1px solid var(--linea)}
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tinta)}
+.marca img{width:42px;height:42px;border-radius:10px;display:block}
+.marca span{font-family:"Marcellus SC",serif;font-size:22px;letter-spacing:.05em}
+.menu{display:flex;flex-wrap:wrap;align-items:center;gap:24px;font-size:19px}
+.menu a{color:var(--tinta-2);text-decoration:none}
+.menu a:hover{color:var(--almagre)}
+.menu .btn{min-height:44px;font-size:16px;color:var(--pergamino-claro)}
+
+/* Incipit: texto flotando sobre la iluminación del Beato. Un velo oscuro bajo el texto
+   (más denso en el centro) y sombra en las letras garantizan la lectura. */
+.incipit{position:relative;isolation:isolate;padding:128px 0 120px;
+  background:var(--tinta) url(img/beato-silos-dragon.webp) center/cover no-repeat}
+.incipit::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:radial-gradient(ellipse 70% 75% at 50% 50%,rgba(16,11,6,.84) 0%,rgba(16,11,6,.74) 55%,rgba(16,11,6,.5) 100%)}
+.titular{max-width:980px;margin:0 auto;text-align:center;color:#FBF7EF;
+  text-shadow:0 1px 2px rgba(0,0,0,.9),0 2px 18px rgba(0,0,0,.7)}
+.titular .rubrica{color:#F2CFA0}
+.lema{margin:10px auto 0;font-family:"Marcellus SC",serif;font-size:clamp(16px,1.5vw,19px);letter-spacing:.12em;
+  line-height:1.45;color:#F2CFA0;max-width:700px}
+.incipit h1{margin:24px auto 0;font-size:clamp(42px,6.6vw,96px);line-height:1;letter-spacing:-.01em;max-width:880px}
+.incipit h1 em{color:#F4AE96}
+.entradilla{margin:28px auto 0;font-size:clamp(19px,1.8vw,24px);line-height:1.5;color:#EFE6D3;max-width:700px}
+
+/* Insignias oficiales de las tiendas, en un marco claro para que no se pierdan */
+.marco-tiendas{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px;
+  margin-top:38px;padding:16px 22px;background:rgba(248,243,232,.97);border:1px solid var(--linea);
+  box-shadow:0 12px 34px rgba(0,0,0,.38);text-shadow:none}
+.insignia{display:block;line-height:0}
+.insignia img{display:block;height:48px;width:auto}
+.insignia:hover{filter:brightness(1.15)}
+.colofon .marco-tiendas{box-shadow:none}
+.credito{position:absolute;right:16px;bottom:12px;margin:0;padding:4px 10px;font-size:14px;font-style:italic;
+  color:#F4EEE1;background:rgba(35,29,21,.78)}
+
+/* Claustro */
+.claustro{padding:72px 0 24px}
+.arcada{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border-bottom:14px solid var(--piedra)}
+.arcada figure{margin:0;padding:0 10px;border-left:10px solid var(--piedra)}
+.arcada figure:last-child{border-right:10px solid var(--piedra)}
+.arcada .arco{aspect-ratio:3/5}
+.pie-claustro{margin:14px 0 0;text-align:center;font-style:italic;font-size:17px;color:var(--tinta-2)}
+
+/* Folio I · mapa y censo */
+.mapa{display:flex;flex-wrap:wrap;gap:56px;margin-top:20px;align-items:flex-start}
+.mapa__lienzo{flex:999 1 560px;min-width:0}
+.capitular::first-letter{float:left;font-family:"Marcellus SC",serif;font-size:112px;line-height:.8;
+  padding:8px 14px 0 0;color:var(--almagre)}
+.mapa__lienzo img{display:block;width:100%;height:auto;margin-top:28px;clear:both}
+.mapa__pie{margin:6px 0 0;font-size:16px;font-style:italic;color:var(--tinta-2)}
+.censo{flex:1 1 320px;min-width:0;padding:28px 30px;background:var(--pergamino-claro);border:1px solid var(--linea)}
+.censo h3{margin:0 0 12px;font-family:"Marcellus SC",serif;font-size:20px;letter-spacing:.08em;color:var(--almagre)}
+.censo ol{list-style:none;margin:0;padding:0}
+.fila{display:flex;align-items:baseline;gap:10px;font-size:20px;padding:7px 0}
+.fila .puntos{flex:1;border-bottom:2px dotted #B9AB90;transform:translateY(-5px)}
+.fila--resto{font-style:italic;color:var(--tinta-2)}
+.fila--suma{border-top:1.5px solid var(--tinta);margin-top:8px;padding-top:12px;font-weight:600}
+.fila--suma .puntos{border-bottom-color:transparent}
+
+/* Folio II · siglos */
+.siglos{display:flex;flex-direction:column;gap:16px;margin-top:44px}
+.siglo{display:grid;grid-template-columns:80px minmax(0,1fr) 80px;gap:16px;align-items:center}
+.siglo__n{font-family:"Marcellus SC",serif;font-size:28px}
+.siglo__barra{height:28px;background:var(--pergamino-claro)}
+.siglo__barra span{display:block;height:100%;background:var(--tinta)}
+.siglo__v{font-size:20px;text-align:right}
+.siglo--destacado .siglo__n,.siglo--destacado .siglo__v{color:var(--almagre);font-weight:600}
+.siglo--destacado .siglo__barra span{background:var(--almagre)}
+.nota{margin:20px 0 0;font-size:18px;font-style:italic;color:var(--tinta-2)}
+
+/* Folio III · ficha */
+.centrado{text-align:center}
+.folio h2.centrado{margin-left:auto;margin-right:auto;max-width:820px}
+.ficha{display:flex;flex-wrap:wrap;gap:40px;margin-top:56px;align-items:center;justify-content:center}
+.glosas{flex:1 1 260px;display:flex;flex-direction:column;gap:34px}
+.glosas--izq{text-align:right}
+.glosa dt{font-family:"Marcellus SC",serif;font-size:15px;letter-spacing:.14em;color:var(--almagre)}
+.glosa dd{margin:6px 0 0;font-size:19px;line-height:1.42}
+.ficha figure{flex:0 1 360px;margin:0}
+.ficha .arco{aspect-ratio:3/4;border:10px solid var(--piedra)}
+.ficha figcaption{text-align:center;margin-top:14px}
+.ficha figcaption strong{display:block;font-weight:400;font-size:26px;line-height:1.2}
+.ficha figcaption span{font-size:17px;font-style:italic;color:var(--tinta-2)}
+.tecnica{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin:56px 0 0;
+  border-top:1.5px solid var(--tinta);border-bottom:1.5px solid var(--tinta)}
+.tecnica div{padding:16px 14px;border-right:1px solid var(--linea)}
+.tecnica div:last-child{border-right:none}
+.tecnica dt{font-family:"Marcellus SC",serif;font-size:13px;letter-spacing:.12em;color:var(--almagre)}
+.tecnica dd{margin:4px 0 0;font-size:18px}
+.mas{margin:40px auto 0;text-align:center;font-size:19px;color:var(--tinta-2);max-width:680px}
+
+/* Folio IV · cómo se usa */
+.folio--tinta{background:var(--tinta);color:var(--pergamino)}
+.folio--tinta .rubrica{color:var(--almagre-claro)}
+.pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:44px 32px;margin:40px 0 0;padding:0;list-style:none}
+.paso__n{width:84px;height:104px;border:2px solid var(--almagre-claro);display:flex;align-items:center;justify-content:center;
+  font-family:"Marcellus SC",serif;font-size:34px;color:var(--almagre-claro);padding-top:14px}
+.paso h3{margin-top:18px;font-weight:500;font-size:26px}
+.paso p{margin:6px 0 0;font-size:19px;line-height:1.45;color:#D2C6AE}
+
+/* Folio V · planes */
+.planes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:32px;border:1px solid var(--linea)}
+.plan{padding:32px;border-right:1px solid var(--linea)}
+.plan:last-child{border-right:none;background:var(--pergamino-claro)}
+.plan h3{font-family:"Marcellus SC",serif;font-size:22px}
+.plan--premium h3{color:var(--almagre)}
+.plan__precio{margin:4px 0 0;font-style:italic;color:var(--tinta-2);font-size:18px}
+.plan__precio strong{font-style:normal;color:var(--tinta);font-weight:600}
+.plan p.plan__texto{margin:18px 0 0;font-size:19px;line-height:1.5}
+
+/* Folio VI · soporte y preguntas */
+.soporte{display:grid;grid-template-columns:1fr 1.3fr;gap:54px;margin-top:34px}
+.contacto{border:1px solid var(--linea);background:var(--pergamino-claro);padding:30px;align-self:start}
+.contacto .etiqueta{font-family:"Marcellus SC",serif;letter-spacing:.18em;font-size:14px;color:var(--almagre);display:block;margin-bottom:4px}
+.contacto .correo{font-size:26px;overflow-wrap:anywhere}
+.contacto p{font-size:17px;color:var(--tinta-2);margin:16px 0 0}
+details{border-bottom:1px solid var(--linea);padding:16px 0}
+summary{cursor:pointer;font-size:21px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--almagre);font-family:"Marcellus SC",serif}
+details[open] summary::after{content:"\2013"}
+details p{color:var(--tinta-2);margin:10px 0 0;font-size:18px}
+
+/* Colofón */
+.colofon{padding:104px 0;background:var(--pergamino-oscuro);text-align:center}
+.colofon .wrap{display:flex;flex-direction:column;align-items:center}
+.colofon .arco{width:120px;height:150px;border:6px solid var(--piedra)}
+.colofon h2{margin-top:32px;font-size:clamp(40px,5.6vw,76px);line-height:1.02;max-width:900px}
+.colofon h2 em{color:var(--almagre)}
+.qrs{display:flex;gap:40px;justify-content:center;margin-top:36px}
+.qrs figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:15px;font-style:italic;color:var(--tinta-2)}
+.qrs svg{width:118px;height:118px;background:#fff;padding:9px;border:1px solid var(--linea)}
+.explicit{margin:40px 0 0;font-style:italic;font-size:17px;color:var(--tinta-2);max-width:560px}
+
+/* Pie */
+.pie{padding:32px 0 40px;border-top:1px solid var(--linea);font-size:16px;color:var(--tinta-2)}
+.pie .wrap{display:flex;flex-direction:column;gap:14px}
+.pie nav{display:flex;flex-wrap:wrap;gap:8px 22px}
+.pie small{font-size:14px;font-style:italic}
+
+@media (max-width:860px){
+  .soporte{grid-template-columns:1fr;gap:34px}
+  .glosas--izq{text-align:left}
+}
+@media (max-width:760px){
+  body{font-size:18px}
+  .wrap{padding:0 16px}
+  .folio{padding:72px 0}
+  .incipit{padding:56px 0 72px}
+  .incipit::before{background:rgba(16,11,6,.76)}
+  .marco-tiendas{padding:12px 14px;gap:12px}
+  .insignia img{height:44px}
+  .credito{left:16px;right:16px;font-size:12px;text-align:center}
+  .arcada figure{padding:0 4px;border-left-width:5px}
+  .arcada figure:last-child{border-right-width:5px}
+  .arcada{border-bottom-width:8px}
+  .menu{gap:16px;font-size:17px}
+  .menu .ocultar-movil{display:none}
+  .siglo{grid-template-columns:56px minmax(0,1fr) 64px;gap:10px}
+  .plan{border-right:none;border-bottom:1px solid var(--linea)}
+  .qrs{display:none}
+  .contacto .correo{font-size:21px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
