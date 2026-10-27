@@ -66,8 +66,9 @@ FAQ = [
      "No. El mapa, la búsqueda y la navegación funcionan sin cuenta. El registro gratuito añade "
      "favoritos, valoraciones y comentarios."),
     ("¿Qué incluye la suscripción Premium y cuánto cuesta?",
-     f"Premium retira la publicidad, amplía el mapa, abre el filtrado avanzado sobre tus favoritas y te "
-     f"permite añadir tus fotos a los comentarios. Cuesta {PRECIO_PRIMER_ANIO} el primer año y, después, "
+     f"Premium retira los anuncios y te da un mapa más amplio, filtrado avanzado, fichas académicas y la "
+     f"galería fotográfica completa, incluidas tus propias fotos en los comentarios. Además, ayuda a "
+     f"expandir la comunidad. Cuesta {PRECIO_PRIMER_ANIO} el primer año y, después, "
      f"{PRECIO_RENOVACION} al año. Se gestiona desde la tienda de tu dispositivo."),
     ("¿Puedo usar Románico Maps para preparar rutas románicas?",
      "Sí. Puedes buscar lugares cercanos, guardar favoritos y abrir la ubicación en tu app de mapas "
