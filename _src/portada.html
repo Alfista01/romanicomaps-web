@@ -2,15 +2,28 @@
      Se edita AQUÍ, nunca en index.html. Las marcas {{ASÍ}} las rellena _build_site.py;
      si falta alguna o sobra una desconocida, el generador se niega a escribir.
      La cabecera <head> (SEO, Open Graph, datos estructurados) la pone el generador. -->
-<header class="wrap barra">
-  <a class="marca" href="./"><img src="logo_romanico_maps.png" alt="" width="42" height="42"><span>Románico Maps</span></a>
-  <nav class="menu" aria-label="Principal">
-    <a class="ocultar-movil" href="#mapa">El mapa</a>
-    <a class="ocultar-movil" href="#ficha">La ficha</a>
-    <a href="#planes">Premium</a>
-    <a href="#soporte">Soporte</a>
-    <a class="btn btn--almagre" href="#descargar">Descargar</a>
-  </nav>
+<header class="cabecera">
+  <div class="wrap barra">
+    <a class="marca" href="./"><img src="logo_romanico_maps.png" alt="" width="42" height="42"><span>Románico Maps</span></a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#mapa">El mapa</a>
+      <a href="#ficha">La ficha</a>
+      <a href="#planes">Premium</a>
+      <a href="#soporte">Soporte</a>
+      <a class="btn btn--almagre" href="#descargar">Descargar</a>
+    </nav>
+    <!-- En móvil, el mismo menú dentro de un desplegable (funciona sin JavaScript). -->
+    <details class="menu-movil">
+      <summary class="menu-movil__boton" aria-label="Abrir el menú">Menú</summary>
+      <nav class="menu-movil__panel" aria-label="Principal (móvil)">
+        <a class="btn btn--almagre" href="#descargar">Descargar la app</a>
+        <a href="#mapa">El mapa</a>
+        <a href="#ficha">La ficha</a>
+        <a href="#planes">Premium</a>
+        <a href="#soporte">Soporte y preguntas</a>
+      </nav>
+    </details>
+  </div>
 </header>
 
 <main>
@@ -151,7 +164,7 @@
         <a class="correo" href="mailto:{{EMAIL}}">{{EMAIL}}</a>
         <p>Cuéntanos qué dispositivo usas y, si es un error de datos o de geolocalización de una iglesia, su nombre y localidad. Respuesta habitual: 24–48 h laborables.</p>
       </div>
-      <div>
+      <div class="preguntas">
 {{FAQ}}
       </div>
     </div>
@@ -190,3 +203,9 @@
     <small>Fondo de la portada: Beato de Silos (c. 1100), British Library, Add MS 11695, dominio público.</small>
   </div>
 </footer>
+<script>
+  /* Cierra el menú móvil al elegir una sección. Sin JavaScript el menú sigue funcionando. */
+  document.querySelectorAll('.menu-movil a').forEach(function (a) {
+    a.addEventListener('click', function () { a.closest('details').open = false; });
+  });
+</script>

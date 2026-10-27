@@ -142,7 +142,8 @@
 :root{--pergamino:#F1EADB;--pergamino-claro:#F8F3E8;--pergamino-oscuro:#E8DEC8;--piedra:#D9CCAF;
   --linea:#CDBF9F;--tinta:#231D15;--tinta-2:#4F4535;--almagre:#9B3A2E;--almagre-claro:#E3A08F;--max:1200px}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+section[id]{scroll-margin-top:76px}
 body{margin:0;background:var(--pergamino);color:var(--tinta);font-family:"EB Garamond",Georgia,serif;
   font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
 a{color:var(--almagre)}a:hover{color:#6E2219}
@@ -167,16 +168,31 @@ h1,h2,h3{font-weight:400;margin:0}
 .arco{border-radius:999px 999px 0 0;overflow:hidden}
 .arco img{width:100%;height:100%;object-fit:cover;display:block}
 
-/* Cabecera */
-.barra{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;
-  padding-top:20px;padding-bottom:20px;border-bottom:1px solid var(--linea)}
+/* Cabecera (fija arriba al hacer scroll) */
+.cabecera{position:sticky;top:0;z-index:20;background:var(--pergamino);border-bottom:1px solid var(--linea)}
+.barra{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:14px;padding-bottom:14px}
 .marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tinta)}
 .marca img{width:42px;height:42px;border-radius:10px;display:block}
-.marca span{font-family:"Marcellus SC",serif;font-size:22px;letter-spacing:.05em}
+.marca span{font-family:"Marcellus SC",serif;font-size:22px;letter-spacing:.05em;white-space:nowrap}
 .menu{display:flex;flex-wrap:wrap;align-items:center;gap:24px;font-size:19px}
 .menu a{color:var(--tinta-2);text-decoration:none}
 .menu a:hover{color:var(--almagre)}
 .menu .btn{min-height:44px;font-size:16px;color:var(--pergamino-claro)}
+
+/* Menú móvil: desplegable con <details>, sin dependencias */
+.menu-movil{display:none;position:relative}
+.menu-movil__boton{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;min-height:44px;padding:0 14px;
+  border:1.5px solid var(--tinta);font-family:"Marcellus SC",serif;font-size:16px;letter-spacing:.06em;user-select:none}
+.menu-movil__boton::-webkit-details-marker{display:none}
+.menu-movil__boton::before{content:"";width:18px;height:12px;
+  background:linear-gradient(currentColor 0 0) top/100% 2px no-repeat,linear-gradient(currentColor 0 0) center/100% 2px no-repeat,
+  linear-gradient(currentColor 0 0) bottom/100% 2px no-repeat}
+.menu-movil[open] .menu-movil__boton{background:var(--tinta);color:var(--pergamino-claro)}
+.menu-movil__panel{position:absolute;right:0;top:calc(100% + 10px);width:min(270px,calc(100vw - 32px));display:flex;flex-direction:column;
+  padding:12px;background:var(--pergamino-claro);border:1px solid var(--linea);box-shadow:0 18px 40px rgba(20,14,8,.28)}
+.menu-movil__panel a{padding:13px 8px;text-decoration:none;color:var(--tinta);font-size:19px;border-bottom:1px solid var(--linea)}
+.menu-movil__panel a:last-child{border-bottom:none}
+.menu-movil__panel .btn{color:var(--pergamino-claro);border-bottom:none;margin-bottom:6px;justify-content:center}
 
 /* Incipit: texto flotando sobre la iluminación del Beato. Un velo oscuro bajo el texto
    (más denso en el centro) y sombra en las letras garantizan la lectura. */
@@ -285,12 +301,12 @@ h1,h2,h3{font-weight:400;margin:0}
 .contacto .etiqueta{font-family:"Marcellus SC",serif;letter-spacing:.18em;font-size:14px;color:var(--almagre);display:block;margin-bottom:4px}
 .contacto .correo{font-size:26px;overflow-wrap:anywhere}
 .contacto p{font-size:17px;color:var(--tinta-2);margin:16px 0 0}
-details{border-bottom:1px solid var(--linea);padding:16px 0}
-summary{cursor:pointer;font-size:21px;list-style:none;display:flex;justify-content:space-between;gap:16px}
-summary::-webkit-details-marker{display:none}
-summary::after{content:"+";color:var(--almagre);font-family:"Marcellus SC",serif}
-details[open] summary::after{content:"\2013"}
-details p{color:var(--tinta-2);margin:10px 0 0;font-size:18px}
+.preguntas details{border-bottom:1px solid var(--linea);padding:16px 0}
+.preguntas summary{cursor:pointer;font-size:21px;list-style:none;display:flex;justify-content:space-between;gap:16px}
+.preguntas summary::-webkit-details-marker{display:none}
+.preguntas summary::after{content:"+";color:var(--almagre);font-family:"Marcellus SC",serif}
+.preguntas details[open] summary::after{content:"\2013"}
+.preguntas details p{color:var(--tinta-2);margin:10px 0 0;font-size:18px}
 
 /* Colofón */
 .colofon{padding:104px 0;background:var(--pergamino-oscuro);text-align:center}
@@ -309,6 +325,10 @@ details p{color:var(--tinta-2);margin:10px 0 0;font-size:18px}
 .pie nav{display:flex;flex-wrap:wrap;gap:8px 22px}
 .pie small{font-size:14px;font-style:italic}
 
+@media (max-width:900px){
+  .menu{display:none}
+  .menu-movil{display:block}
+}
 @media (max-width:860px){
   .soporte{grid-template-columns:1fr;gap:34px}
   .glosas--izq{text-align:left}
@@ -325,25 +345,48 @@ details p{color:var(--tinta-2);margin:10px 0 0;font-size:18px}
   .arcada figure{padding:0 4px;border-left-width:5px}
   .arcada figure:last-child{border-right-width:5px}
   .arcada{border-bottom-width:8px}
-  .menu{gap:16px;font-size:17px}
-  .menu .ocultar-movil{display:none}
+  .barra{padding-top:10px;padding-bottom:10px}
+  .marca{gap:10px}
+  .marca img{width:36px;height:36px}
+  .marca span{font-size:19px}
+  section[id]{scroll-margin-top:64px}
   .siglo{grid-template-columns:56px minmax(0,1fr) 64px;gap:10px}
   .plan{border-right:none;border-bottom:1px solid var(--linea)}
   .qrs{display:none}
   .contacto .correo{font-size:21px}
 }
+/* Va después del bloque de 760 px para que gane en móviles muy estrechos */
+@media (max-width:380px){
+  .marca{gap:8px}
+  .marca img{width:32px;height:32px}
+  .marca span{font-size:16px;letter-spacing:.02em}
+  .menu-movil__boton{padding:0 10px;font-size:15px}
+}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style></head>
 <body>
-<header class="wrap barra">
-  <a class="marca" href="./"><img src="logo_romanico_maps.png" alt="" width="42" height="42"><span>Románico Maps</span></a>
-  <nav class="menu" aria-label="Principal">
-    <a class="ocultar-movil" href="#mapa">El mapa</a>
-    <a class="ocultar-movil" href="#ficha">La ficha</a>
-    <a href="#planes">Premium</a>
-    <a href="#soporte">Soporte</a>
-    <a class="btn btn--almagre" href="#descargar">Descargar</a>
-  </nav>
+<header class="cabecera">
+  <div class="wrap barra">
+    <a class="marca" href="./"><img src="logo_romanico_maps.png" alt="" width="42" height="42"><span>Románico Maps</span></a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#mapa">El mapa</a>
+      <a href="#ficha">La ficha</a>
+      <a href="#planes">Premium</a>
+      <a href="#soporte">Soporte</a>
+      <a class="btn btn--almagre" href="#descargar">Descargar</a>
+    </nav>
+    <!-- En móvil, el mismo menú dentro de un desplegable (funciona sin JavaScript). -->
+    <details class="menu-movil">
+      <summary class="menu-movil__boton" aria-label="Abrir el menú">Menú</summary>
+      <nav class="menu-movil__panel" aria-label="Principal (móvil)">
+        <a class="btn btn--almagre" href="#descargar">Descargar la app</a>
+        <a href="#mapa">El mapa</a>
+        <a href="#ficha">La ficha</a>
+        <a href="#planes">Premium</a>
+        <a href="#soporte">Soporte y preguntas</a>
+      </nav>
+    </details>
+  </div>
 </header>
 
 <main>
@@ -487,7 +530,7 @@ details p{color:var(--tinta-2);margin:10px 0 0;font-size:18px}
         <a class="correo" href="mailto:soporte@romanicomaps.com">soporte@romanicomaps.com</a>
         <p>Cuéntanos qué dispositivo usas y, si es un error de datos o de geolocalización de una iglesia, su nombre y localidad. Respuesta habitual: 24–48 h laborables.</p>
       </div>
-      <div>
+      <div class="preguntas">
         <details open><summary>¿Qué es Románico Maps?</summary><p>Románico Maps es una aplicación para iPhone y Android que reúne en un mapa casi 7.000 iglesias, ermitas y monasterios románicos geolocalizados, con su datación, su historia, su estado de conservación y sus restos románicos.</p></details>
         <details><summary>¿Necesito registrarme para usar la app?</summary><p>No. El mapa, la búsqueda y la navegación funcionan sin cuenta. El registro gratuito añade favoritos, valoraciones y comentarios.</p></details>
         <details><summary>¿Qué incluye la suscripción Premium y cuánto cuesta?</summary><p>Premium retira los anuncios y te da un mapa más amplio, filtrado avanzado, fichas académicas y la galería fotográfica completa, incluidas tus propias fotos en los comentarios. Además, ayuda a expandir la comunidad. Cuesta 0,99 € el primer año y, después, 2,99 € al año. Se gestiona desde la tienda de tu dispositivo.</p></details>
@@ -534,4 +577,10 @@ details p{color:var(--tinta-2);margin:10px 0 0;font-size:18px}
     <small>Fondo de la portada: Beato de Silos (c. 1100), British Library, Add MS 11695, dominio público.</small>
   </div>
 </footer>
+<script>
+  /* Cierra el menú móvil al elegir una sección. Sin JavaScript el menú sigue funcionando. */
+  document.querySelectorAll('.menu-movil a').forEach(function (a) {
+    a.addEventListener('click', function () { a.closest('details').open = false; });
+  });
+</script>
 </body></html>
