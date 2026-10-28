@@ -77,6 +77,25 @@ class TestSitio(unittest.TestCase):
         roto = dict(self.salida, **{"robots.txt": "User-agent: *\nDisallow: /\n"})
         self.assertTrue(any("Disallow" in e or "falta" in e for e in MOD.comprobar(roto)))
 
+    def test_todas_las_paginas_con_la_identidad_comun(self):
+        for archivo, doc in self.salida.items():
+            if archivo.endswith(".html"):
+                self.assertIn("--pergamino", doc, archivo)
+                self.assertNotIn("--piedra-2", doc, archivo)
+                self.assertIn(MOD.marca.LOGO, doc, archivo)
+
+    def test_tematicas_generadas_con_su_seo(self):
+        for archivo in MOD.TEMATICAS:
+            doc = self.salida[archivo]
+            self.assertIn(f'<link rel="canonical" href="https://romanicomaps.com/{archivo}">', doc)
+            self.assertIn('"@type": "WebPage"', doc)
+            self.assertIn("img/tiendas/app-store-es.svg", doc)
+        self.assertEqual(len(MOD.TEMATICAS), 4)
+
+    def test_detecta_estilo_antiguo(self):
+        roto = dict(self.salida, **{"privacidad.html": self.salida["privacidad.html"].replace("--pergamino", "--piedra-2")})
+        self.assertTrue(any("identidad" in e for e in MOD.comprobar(roto)))
+
     def test_marca_sin_valor_para_el_generador(self):
         with self.assertRaises(SystemExit):
             MOD.rellenar("<p>{{NO_EXISTE}}</p>", {}, "prueba")

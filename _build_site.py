@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Genera el sitio estatico de romanicomaps.com.
 
-Escribe: index.html (portada), las paginas legales, sitemap.xml, robots.txt y CNAME.
-No toca: las fichas /i/ (las genera _fichas/) ni las paginas tematicas
-(mapa-romanico-espana.html, iglesias-romanicas.html, ...), que se mantienen a
-mano; a esas solo las comprueba y las lista en el sitemap.
+Escribe: index.html (portada), las paginas tematicas (mapa, iglesias, rutas,
+monasterios; contenido en _src/paginas/), las legales (_src/*.md), sitemap.xml,
+robots.txt y CNAME. Todas con la identidad comun de _src/marca.css.
+No toca: las fichas /i/ (las genera _fichas/ con la misma identidad).
 
 REGLAS (detalle en _src/README.md):
   * Nunca se edita a mano index.html ni las paginas legales: se editan los
@@ -94,6 +94,27 @@ PAGINAS = {
         descripcion=(f"{CIFRA[0].upper() + CIFRA[1:]} iglesias, ermitas y monasterios románicos geolocalizados, con su datación, "
                      "historia y estado de conservación. Gratis en iPhone y Android."),
         og_tipo="website", prioridad="1.0", frecuencia="monthly"),
+    # Tematicas: contenido en _src/paginas/<fichero>; aqui solo su SEO.
+    "mapa-romanico-espana.html": dict(
+        titulo="Mapa del románico en España | Románico Maps", nombre="Mapa del románico en España",
+        etiqueta="Mapa del románico", cuerpo="paginas/mapa-romanico-espana.html",
+        descripcion="Explora un mapa interactivo del románico en España con iglesias, ermitas, monasterios y catedrales geolocalizadas.",
+        og_tipo="article", prioridad="0.8", frecuencia="monthly"),
+    "iglesias-romanicas.html": dict(
+        titulo="Iglesias románicas en España | Románico Maps", nombre="Iglesias románicas en España",
+        etiqueta="Iglesias románicas", cuerpo="paginas/iglesias-romanicas.html",
+        descripcion="Encuentra iglesias románicas en España con ubicación, fotografías, datos históricos y filtros para preparar visitas culturales.",
+        og_tipo="article", prioridad="0.8", frecuencia="monthly"),
+    "rutas-romanicas.html": dict(
+        titulo="Rutas románicas por España | Románico Maps", nombre="Rutas románicas por España",
+        etiqueta="Rutas románicas", cuerpo="paginas/rutas-romanicas.html",
+        descripcion="Prepara tus rutas románicas: localiza iglesias, ermitas y monasterios en el mapa, guárdalos como favoritos y llévalos seleccionados de casa.",
+        og_tipo="article", prioridad="0.8", frecuencia="monthly"),
+    "monasterios-romanicos.html": dict(
+        titulo="Monasterios románicos en España | Románico Maps", nombre="Monasterios románicos en España",
+        etiqueta="Monasterios románicos", cuerpo="paginas/monasterios-romanicos.html",
+        descripcion="Descubre monasterios románicos en España y otros enclaves medievales con Románico Maps, una guía geolocalizada del patrimonio románico.",
+        og_tipo="article", prioridad="0.8", frecuencia="monthly"),
     "privacidad.html": dict(
         titulo="Política de privacidad · Románico Maps",
         descripcion="Política de privacidad de la app y la web de Románico Maps: qué datos se tratan, para qué y cómo ejercer tus derechos.",
@@ -112,9 +133,9 @@ PAGINAS = {
         og_tipo="article", prioridad="0.3", frecuencia="yearly", fuente="condiciones_uso.md", cabecera="Condiciones de uso"),
 }
 
-# Paginas tematicas mantenidas a mano: solo se comprueban y se listan en el sitemap.
-TEMATICAS = ["mapa-romanico-espana.html", "iglesias-romanicas.html",
-             "rutas-romanicas.html", "monasterios-romanicos.html"]
+# Paginas tematicas (generadas desde _src/paginas/, con bloque de descarga y enlaces cruzados).
+TEMATICAS = [a for a, p in PAGINAS.items() if "cuerpo" in p]
+LEGALES = [a for a, p in PAGINAS.items() if "fuente" in p]
 
 
 # --- Utilidades ----------------------------------------------------------------
@@ -200,10 +221,6 @@ def md2html(md):
 
 # --- Cabecera comun (SEO) --------------------------------------------------------
 FUENTES_PORTADA = marca.FUENTES
-FUENTES_LEGALES = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
-                   '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-                   '<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Marcellus+SC&'
-                   'family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">')
 
 
 def cabecera(archivo, extra="", robots="index, follow"):
@@ -290,43 +307,44 @@ def portada():
     return cabecera("index.html", extra) + "</head>\n<body>\n" + cuerpo + "</body></html>\n"
 
 
-# --- Paginas legales ----------------------------------------------------------------
-CSS_LEGAL = """
-  :root{--piedra:#EAE3D5;--piedra-2:#DED5C3;--linea:#C5B79F;--tinta:#221E17;
-    --tinta-2:#5A5141;--almagre:#9B3A2E;--oro:#B0863C;--max:1100px}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--piedra);color:var(--tinta);font-family:"EB Garamond",Georgia,serif;
-    font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased}
-  a{color:var(--almagre);text-decoration:none}a:hover{text-decoration:underline}
-  :focus-visible{outline:3px solid var(--almagre);outline-offset:3px}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
-  h1,h2,h3{font-family:"Marcellus",serif;font-weight:400;line-height:1.12}
-  .topbar{border-bottom:1px solid var(--linea);padding:18px 0}
-  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-  .home{font-family:"Marcellus SC",serif;letter-spacing:.2em;font-size:.78rem;color:var(--tinta)}
-  .doc{max-width:760px;margin:0 auto;padding:48px 28px 80px}
-  .doc h1{font-size:clamp(2rem,5vw,3rem);margin-bottom:6px}
-  .doc h2{font-size:1.45rem;margin:34px 0 8px;padding-top:8px}
-  .doc h3{font-size:1.12rem;margin:22px 0 6px;color:var(--tinta-2)}
-  .doc p{margin:10px 0;color:#2c271f}.doc ul,.doc ol{margin:10px 0 10px 24px}.doc li{margin:5px 0}
-  .doc hr{border:none;border-top:1px solid var(--linea);margin:30px 0}.doc em{color:var(--tinta-2)}
-  footer{padding:40px 0;border-top:1px solid var(--linea);text-align:center;color:var(--tinta-2);font-size:.9rem}
-  .nl-frame{display:block;width:100%;max-width:560px;border:1px solid var(--linea);background:#fff;margin:22px 0 0}
-  .nl-legal{font-size:.86rem;color:var(--tinta-2)}
-  .btn{display:inline-block;padding:11px 22px;background:var(--almagre);color:#fff;font-family:"Marcellus SC",serif;letter-spacing:.06em;margin:6px 8px 0 0}
-  .btn.sec{background:transparent;color:var(--almagre);border:1px solid var(--almagre)}
-"""
+# --- Paginas interiores (tematicas y legales) --------------------------------------
+# Misma identidad que la portada y las fichas: marca.css + _src/interior.css.
+def webpage_ld(archivo):
+    p, url = PAGINAS[archivo], url_de(archivo)
+    datos = {"@context": "https://schema.org", "@type": "WebPage", "@id": f"{url}#webpage", "url": url,
+             "name": p["nombre"], "description": p["descripcion"], "inLanguage": "es",
+             "isPartOf": {"@id": f"{DOMINIO}/#website"}}
+    texto = json.dumps(datos, ensure_ascii=False).replace("</", "<\\/")
+    return f'<script type="application/ld+json">\n{texto}\n</script>\n'
 
 
-def pagina_legal(archivo, cuerpo_html, robots="index, follow"):
+def pie_interior():
+    tem = "".join(f'\n    <a href="{a}">{esc(PAGINAS[a]["etiqueta"])}</a>' for a in TEMATICAS)
+    leg = "".join(f'\n    <a href="{a}">{esc(PAGINAS[a]["cabecera"])}</a>' for a in LEGALES)
+    if NEWSLETTER_WEB:
+        leg += '\n    <a href="newsletter.html">Newsletter</a>'
+    return (f'<footer class="pie"><div class="env">\n  <nav aria-label="El románico">\n    <a href="./">Portada</a>{tem}\n  </nav>\n'
+            f'  <nav aria-label="Información legal">{leg}\n  </nav>\n'
+            f'  <p>© {HOY.year} Románico Maps · GATE2K Management Solutions · romanicomaps.com</p>\n</div></footer>\n')
+
+
+def pagina_interior(archivo, cuerpo_html, robots="index, follow", con_descarga=False):
     p = PAGINAS[archivo]
-    pie_nl = ' &middot; <a href="newsletter.html">Newsletter</a>' if NEWSLETTER_WEB else ""
-    return (cabecera(archivo, f"{FUENTES_LEGALES}\n<style>{CSS_LEGAL}</style>", robots) + "</head><body>\n"
-            f'<div class="topbar"><div class="wrap"><a class="home" href="./">&larr;&nbsp;Rom&aacute;nico Maps</a>\n'
-            f'<span class="home" style="color:var(--almagre)">{esc(p["cabecera"])}</span></div></div>\n'
-            f'<main class="doc">{cuerpo_html}</main>\n'
-            f'<footer><div class="wrap">&copy; {HOY.year} Rom&aacute;nico Maps &middot; GATE2K MANAGEMENT SOLUTIONS '
-            f'&middot; romanicomaps.com{pie_nl}</div></footer>\n</body></html>\n')
+    css = marca.css() + (SRC / "interior.css").read_text(encoding="utf-8")
+    ld = webpage_ld(archivo) if "nombre" in p else ""
+    bloque = ""
+    if con_descarga:
+        otras = "".join(f'<a href="{a}">{esc(PAGINAS[a]["etiqueta"])}</a>' for a in TEMATICAS if a != archivo)
+        bloque = (f'<section class="cta">\n  <h2>Ver en <em>Románico Maps</em></h2>\n'
+                  f'  <p>Mapa, fotografías y ficha completa de {CIFRA} iglesias románicas de la Península.</p>\n'
+                  f'{marca.insignias(sangria="  ")}\n</section>\n'
+                  f'<nav class="relacionadas" aria-label="Más sobre el románico">{otras}</nav>\n')
+    return (cabecera(archivo, f"{marca.FUENTES}\n{ld}<style>\n{css}</style>", robots) + "</head>\n<body>\n"
+            '<header class="cabecera"><div class="env barra">\n'
+            f'  <a class="marca" href="./"><img src="{LOGO}" alt="" width="38" height="38"><span>Románico Maps</span></a>\n'
+            '  <a class="btn btn--almagre" href="./#descargar">Descargar</a>\n</div></header>\n'
+            f'<main class="env doc">\n{cuerpo_html}\n{bloque}</main>\n'
+            + pie_interior() + "</body></html>\n")
 
 
 def paginas_newsletter():
@@ -344,9 +362,9 @@ def paginas_newsletter():
             "para descubrir, una escapada de fin de semana y un término del glosario. Un correo a la semana, sin compromiso.</p>\n"
             f'{iframe}<p class="nl-legal">{NEWSLETTER_LEGAL}</p>')
     ok = ("<h1>¡Alta confirmada!</h1>\n<p>Gracias por suscribirte. El próximo envío de la newsletter llegará a tu correo.</p>\n"
-          f'<p class="nl-stores"><a class="btn" href="{APP_URL}">App Store</a> <a class="btn sec" href="{PLAY_URL}">Google Play</a></p>')
-    return {"newsletter.html": pagina_legal("newsletter.html", alta),
-            "newsletter-confirmada.html": pagina_legal("newsletter-confirmada.html", ok, robots="noindex, follow")}
+          f'{marca.insignias(sangria="")}')
+    return {"newsletter.html": pagina_interior("newsletter.html", alta),
+            "newsletter-confirmada.html": pagina_interior("newsletter-confirmada.html", ok, robots="noindex, follow")}
 
 
 # --- sitemap.xml y robots.txt ------------------------------------------------------------
@@ -364,7 +382,6 @@ def sitemap(salida):
     previas = lastmods_actuales()
     filas = []
     entradas = [(a, p["prioridad"], p["frecuencia"]) for a, p in PAGINAS.items() if p.get("sitemap", True)]
-    entradas[1:1] = [(a, "0.8", "monthly") for a in TEMATICAS]
     for archivo, prioridad, frecuencia in entradas:
         disco = RAIZ / archivo
         sin_cambios = archivo not in salida or (disco.exists() and disco.read_text(encoding="utf-8") == salida[archivo])
@@ -387,7 +404,10 @@ def construir():
     for archivo, p in list(PAGINAS.items()):
         if "fuente" in p:
             md = (SRC / p["fuente"]).read_text(encoding="utf-8")
-            salida[archivo] = pagina_legal(archivo, md2html(md))
+            salida[archivo] = pagina_interior(archivo, md2html(md))
+        elif "cuerpo" in p:
+            cuerpo = sin_comentario_inicial((SRC / p["cuerpo"]).read_text(encoding="utf-8")).strip()
+            salida[archivo] = pagina_interior(archivo, cuerpo, con_descarga=True)
     if NEWSLETTER_WEB:
         salida.update(paginas_newsletter())
     salida["sitemap.xml"] = sitemap(salida)
@@ -448,20 +468,25 @@ def comprobar_pagina(archivo, doc, existe):
 
 
 def comprobar(salida):
-    """Lista de errores (vacia = todo bien). Comprueba lo generado y las tematicas en disco."""
+    """Lista de errores (vacia = todo bien)."""
     def existe(ruta):
         return ruta in salida or (RAIZ / ruta).exists()
 
     errores = []
     paginas = {a: c for a, c in salida.items() if a.endswith(".html")}
-    for archivo in TEMATICAS:
-        f = RAIZ / archivo
-        if not f.exists():
-            errores.append(f"{archivo}: no existe")
-        else:
-            paginas[archivo] = f.read_text(encoding="utf-8")
+    for archivo in PAGINAS:
+        if PAGINAS[archivo].get("sitemap", True) and archivo not in paginas:
+            errores.append(f"{archivo}: no se ha generado")
     for archivo, doc in paginas.items():
         errores += comprobar_pagina(archivo, doc, existe)
+        # Todas con la identidad común (y sin restos del estilo anterior).
+        if "--pergamino" not in doc or "--piedra-2" in doc:
+            errores.append(f"{archivo}: no usa la identidad común (_src/marca.css)")
+        if len(re.findall(r"<h1[ >]", doc)) != 1:
+            errores.append(f"{archivo}: debe haber exactamente un <h1>")
+    for archivo in TEMATICAS:
+        if '"@type": "WebPage"' not in paginas.get(archivo, ""):
+            errores.append(f"{archivo}: faltan los datos estructurados WebPage")
 
     # Portada: datos estructurados, FAQ visible = FAQ del esquema, h1, contacto y tiendas.
     idx = salida.get("index.html", "")
