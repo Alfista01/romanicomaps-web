@@ -1,40 +1,17 @@
-/* Portada · estilo «Códice». Se incrusta en index.html al generar el sitio.
-   Paleta y tipografías de la marca: pergamino, tinta y almagre. */
-:root{--pergamino:#F1EADB;--pergamino-claro:#F8F3E8;--pergamino-oscuro:#E8DEC8;--piedra:#D9CCAF;
-  --linea:#CDBF9F;--tinta:#231D15;--tinta-2:#4F4535;--almagre:#9B3A2E;--almagre-claro:#E3A08F;--max:1200px}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+/* Portada · estilo «Códice». Se incrusta en index.html al generar el sitio, DESPUÉS de
+   marca.css (colores, tipografías, logo, botones, arco e insignias comunes con las fichas). */
+:root{--max:1200px}
 section[id]{scroll-margin-top:76px}
-body{margin:0;background:var(--pergamino);color:var(--tinta);font-family:"EB Garamond",Georgia,serif;
-  font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
-a{color:var(--almagre)}a:hover{color:#6E2219}
-:focus-visible{outline:3px solid var(--almagre);outline-offset:3px}
-img{max-width:100%}
-h1,h2,h3{font-weight:400;margin:0}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
 .rubrica{font-family:"Marcellus SC",serif;letter-spacing:.3em;font-size:16px;color:var(--almagre);margin:0}
 .folio{padding:96px 0}
 .folio--oscuro{background:var(--pergamino-oscuro)}
 .folio h2{font-size:clamp(34px,4.2vw,56px);line-height:1.08;margin-top:20px}
 .folio h2 em{color:var(--almagre)}
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 26px;
-  text-decoration:none;font-family:"Marcellus SC",serif;font-size:18px;letter-spacing:.04em}
-.btn:hover{filter:brightness(1.12)}
-.btn--tinta{background:var(--tinta);color:var(--pergamino-claro)}
-.btn--tinta:hover{color:var(--pergamino-claro)}
-.btn--almagre{background:var(--almagre);color:var(--pergamino-claro)}
-.btn--almagre:hover{color:var(--pergamino-claro)}
-.btn--linea{border:1.5px solid var(--tinta);color:var(--tinta)}
-.tiendas{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:36px}
-.arco{border-radius:999px 999px 0 0;overflow:hidden}
-.arco img{width:100%;height:100%;object-fit:cover;display:block}
 
 /* Cabecera (fija arriba al hacer scroll) */
 .cabecera{position:sticky;top:0;z-index:20;background:var(--pergamino);border-bottom:1px solid var(--linea)}
 .barra{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:14px;padding-bottom:14px}
-.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tinta)}
-.marca img{width:42px;height:42px;border-radius:10px;display:block}
-.marca span{font-family:"Marcellus SC",serif;font-size:22px;letter-spacing:.05em;white-space:nowrap}
 .menu{display:flex;flex-wrap:wrap;align-items:center;gap:24px;font-size:19px}
 .menu a{color:var(--tinta-2);text-decoration:none}
 .menu a:hover{color:var(--almagre)}
@@ -70,14 +47,9 @@ h1,h2,h3{font-weight:400;margin:0}
 .incipit h1 em{color:#F4AE96}
 .entradilla{margin:28px auto 0;font-size:clamp(19px,1.8vw,24px);line-height:1.5;color:#EFE6D3;max-width:700px}
 
-/* Insignias oficiales de las tiendas, en un marco claro para que no se pierdan */
-.marco-tiendas{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px;
-  margin-top:38px;padding:16px 22px;background:rgba(248,243,232,.97);border:1px solid var(--linea);
-  box-shadow:0 12px 34px rgba(0,0,0,.38);text-shadow:none}
-.insignia{display:block;line-height:0}
-.insignia img{display:block;height:48px;width:auto}
-.insignia:hover{filter:brightness(1.15)}
-.colofon .marco-tiendas{box-shadow:none}
+/* Insignias (marca.css): aquí solo su colocación en la portada */
+.titular .marco-tiendas{margin-top:38px;box-shadow:0 12px 34px rgba(0,0,0,.38)}
+.colofon .marco-tiendas{margin-top:38px}
 .credito{position:absolute;right:16px;bottom:12px;margin:0;padding:4px 10px;font-size:14px;font-style:italic;
   color:#F4EEE1;background:rgba(35,29,21,.78)}
 
@@ -200,8 +172,6 @@ h1,h2,h3{font-weight:400;margin:0}
   .folio{padding:72px 0}
   .incipit{padding:56px 0 72px}
   .incipit::before{background:rgba(16,11,6,.76)}
-  .marco-tiendas{padding:12px 14px;gap:12px}
-  .insignia img{height:44px}
   .credito{left:16px;right:16px;font-size:12px;text-align:center}
   .arcada figure{padding:0 4px;border-left-width:5px}
   .arcada figure:last-child{border-right-width:5px}

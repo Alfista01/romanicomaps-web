@@ -193,6 +193,33 @@ class CasosLimiteTest(unittest.TestCase):
         self.assertNotIn('content="Iglesia "de la"', html)
 
 
+class IdentidadTest(unittest.TestCase):
+    """La ficha usa la identidad común de la web (_src/marca.py y marca.css)."""
+
+    def test_estilo_comun_con_la_portada(self):
+        self.assertTrue(MOD.CSS.startswith(MOD.marca.css()))
+        self.assertIn("--pergamino", MOD.CSS)
+
+    def test_insignias_oficiales_con_rutas_absolutas(self):
+        html = MOD.render(iglesia(), PORTADA)
+        self.assertIn('src="/img/tiendas/app-store-es.svg"', html)
+        self.assertIn('src="/img/tiendas/google-play-es.png"', html)
+        self.assertIn(f'src="/{MOD.marca.LOGO}"', html)
+
+    def test_google_play_conserva_el_referrer_de_la_iglesia(self):
+        html = MOD.render(iglesia(), PORTADA)
+        self.assertIn("id=com.romanicomaps&amp;referrer=idCode%3D182", html)
+
+    def test_cifra_del_catalogo_comun(self):
+        html = MOD.render(iglesia(), PORTADA)
+        self.assertIn(MOD.marca.CIFRA_IGLESIAS, html)
+        self.assertNotIn("6.500", html)
+
+    def test_smart_app_banner_intacto(self):
+        html = MOD.render(iglesia(), PORTADA)
+        self.assertIn('name="apple-itunes-app" content="app-id=6759716898, app-argument=', html)
+
+
 class SlugTest(unittest.TestCase):
     def test_quita_acentos_y_normaliza(self):
         self.assertEqual(

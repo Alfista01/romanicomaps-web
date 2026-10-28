@@ -30,18 +30,22 @@ import qrcode
 RAIZ = pathlib.Path(__file__).resolve().parent
 SRC = RAIZ / "_src"
 HOY = datetime.date.today()
+sys.path.insert(0, str(SRC))
+import marca  # noqa: E402  identidad común con las fichas (_src/marca.py + marca.css)
 
 # --- Datos del sitio -----------------------------------------------------------
-# Dominio canonico: el apex. www.romanicomaps.com redirige (301) aqui, asi que
-# un canonical con www seria una senal contradictoria. Las fichas /i/ usan el mismo.
-DOMINIO = "https://romanicomaps.com"
-NOMBRE = "Románico Maps"
+# Los comunes con las fichas vienen de _src/marca.py. Dominio canonico: el apex;
+# www.romanicomaps.com redirige (301) aqui, asi que un canonical con www seria
+# una senal contradictoria.
+DOMINIO = marca.DOMINIO
+NOMBRE = marca.NOMBRE
 EMPRESA = "GATE2K MANAGEMENT SOLUTIONS S.L.N.E."
-EMAIL = "soporte@romanicomaps.com"
-APP_URL = "https://apps.apple.com/app/id6759716898"
-PLAY_URL = "https://play.google.com/store/apps/details?id=com.romanicomaps"
+EMAIL = marca.EMAIL
+APP_URL = marca.APP_URL
+PLAY_URL = marca.PLAY_URL
 IMAGEN_SOCIAL = "img/og-romanicomaps.jpg"   # 1200x630, para WhatsApp, redes, etc.
-LOGO = "logo_romanico_maps.png"
+LOGO = marca.LOGO
+CIFRA = marca.CIFRA_IGLESIAS
 
 # Precio de Premium (lo que cobran las tiendas). Se usa en la portada y en la FAQ.
 PRECIO_PRIMER_ANIO = "0,99 €"
@@ -59,7 +63,7 @@ NEWSLETTER_LEGAL = ("Tus datos se tratan con Brevo, nuestro proveedor de email. 
 # (Google exige que coincidan). Texto plano, sin HTML.
 FAQ = [
     ("¿Qué es Románico Maps?",
-     "Románico Maps es una aplicación para iPhone y Android que reúne en un mapa casi 7.000 iglesias, "
+     f"Románico Maps es una aplicación para iPhone y Android que reúne en un mapa {CIFRA} iglesias, "
      "ermitas y monasterios románicos geolocalizados, con su datación, su historia, su estado de "
      "conservación y sus restos románicos."),
     ("¿Necesito registrarme para usar la app?",
@@ -87,7 +91,7 @@ FAQ = [
 PAGINAS = {
     "index.html": dict(
         titulo="Románico Maps | Mapa del románico en España",
-        descripcion=("Casi 7.000 iglesias, ermitas y monasterios románicos geolocalizados, con su datación, "
+        descripcion=(f"{CIFRA[0].upper() + CIFRA[1:]} iglesias, ermitas y monasterios románicos geolocalizados, con su datación, "
                      "historia y estado de conservación. Gratis en iPhone y Android."),
         og_tipo="website", prioridad="1.0", frecuencia="monthly"),
     "privacidad.html": dict(
@@ -195,10 +199,7 @@ def md2html(md):
 
 
 # --- Cabecera comun (SEO) --------------------------------------------------------
-FUENTES_PORTADA = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
-                   '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-                   '<link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&'
-                   'family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">')
+FUENTES_PORTADA = marca.FUENTES
 FUENTES_LEGALES = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
                    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
                    '<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Marcellus+SC&'
@@ -252,7 +253,7 @@ def datos_estructurados():
             {"@type": ["MobileApplication", "SoftwareApplication"], "@id": f"{DOMINIO}/#app",
              "name": NOMBRE, "applicationCategory": "TravelApplication", "operatingSystem": "iOS, Android",
              "url": f"{DOMINIO}/", "image": f"{DOMINIO}/{IMAGEN_SOCIAL}",
-             "description": ("Aplicación móvil con casi 7.000 iglesias, ermitas y monasterios románicos "
+             "description": (f"Aplicación móvil con {CIFRA} iglesias, ermitas y monasterios románicos "
                              "geolocalizados, con su datación, historia, estado de conservación y restos románicos."),
              "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
              "publisher": {"@id": org}, "sameAs": [APP_URL, PLAY_URL]},
@@ -274,21 +275,11 @@ def faq_html():
     return "\n".join(bloques)
 
 
-def tiendas_html():
-    """Insignias oficiales (Apple Marketing Tools y Google Play), sin modificar, en un marco claro."""
-    return ('      <div class="marco-tiendas">\n'
-            f'        <a class="insignia" href="{APP_URL}"><img src="img/tiendas/app-store-es.svg" '
-            'alt="Descárgalo en el App Store" width="144" height="48"></a>\n'
-            f'        <a class="insignia" href="{PLAY_URL}"><img src="img/tiendas/google-play-es.png" '
-            'alt="Disponible en Google Play" width="162" height="48"></a>\n'
-            '      </div>')
-
-
 def portada():
-    css = (SRC / "portada.css").read_text(encoding="utf-8")
+    css = marca.css() + (SRC / "portada.css").read_text(encoding="utf-8")
     cuerpo = sin_comentario_inicial((SRC / "portada.html").read_text(encoding="utf-8"))
     cuerpo = rellenar(cuerpo, {
-        "TIENDAS": tiendas_html(), "EMAIL": EMAIL, "FAQ": faq_html(),
+        "TIENDAS": marca.insignias(), "EMAIL": EMAIL, "FAQ": faq_html(),
         "QR_APP": qr_svg(APP_URL), "QR_PLAY": qr_svg(PLAY_URL),
         "PRECIO_PRIMER_ANIO": PRECIO_PRIMER_ANIO, "PRECIO_RENOVACION": PRECIO_RENOVACION,
         "ANIO": str(HOY.year),
@@ -498,6 +489,11 @@ def comprobar(salida):
             errores.append(f"index.html: falta {imprescindible}")
     if re.search(r"\{\{[A-Z_]+\}\}", idx):
         errores.append("index.html: quedan marcas {{...}} sin rellenar")
+    if CIFRA.lower() not in idx.lower():
+        errores.append(f"index.html: no aparece la cifra del catálogo ({CIFRA})")
+    for recurso in (marca.LOGO, marca.INSIGNIA_APPLE, marca.INSIGNIA_GOOGLE):  # también los usan las fichas
+        if not existe(recurso):
+            errores.append(f"falta {recurso} (lo usan la portada y las fichas)")
 
     # sitemap y robots
     sm = salida.get("sitemap.xml", "")

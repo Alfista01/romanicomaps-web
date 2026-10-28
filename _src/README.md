@@ -11,6 +11,15 @@ tiene su único sitio de edición:
 | Páginas temáticas | `mapa-romanico-espana.html`, `iglesias-romanicas.html`, `rutas-romanicas.html`, `monasterios-romanicos.html` | a mano, en el propio fichero | nadie (el generador solo las comprueba) |
 | Fichas | `i/…` | `_fichas/` (ver su README) | tarea nocturna 23:40 |
 
+## Identidad común (portada y fichas)
+
+Colores, tipografías, logo, botones, arco, insignias de las tiendas, datos de
+la app y la cifra del catálogo («casi 7.000») viven **solo** en
+`_src/marca.css` y `_src/marca.py`. Los usan `_build_site.py` (portada) y
+`_fichas/generar_fichas_web.py` (fichas `/i/`). Si los cambias, la portada se
+actualiza al regenerar y las fichas en la siguiente pasada de la tarea
+nocturna (o lanzándola a mano). No copies esos valores en otro fichero.
+
 ## Reglas
 
 1. **Nunca edites a mano** `index.html`, las legales, `sitemap.xml` ni
