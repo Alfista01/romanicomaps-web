@@ -26130,17 +26130,17 @@
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/2827-aad7d41b4ddb4c23.jpg"
  },
  "2828": {
-  "bytes": 59161,
-  "final": "382x850",
-  "hash": "2cb440ca8e0e6d47",
-  "objectPath": "portadas/2828-e77c669396342506.jpg",
-  "origen": "382x850",
-  "sourceAttachmentId": "attV988oi1BEbvJfn",
-  "sourceFilename": "Guadalajara-JIRUEQUE-Iglesia de San Bartolomé-Icon_Map.jpg",
-  "sourceFingerprint": "e77c669396342506",
-  "sourceSize": 59352,
-  "upscaled": false,
-  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/2828-e77c669396342506.jpg"
+  "bytes": 58918,
+  "final": "788x850",
+  "hash": "bc6771b0d4c259b7",
+  "objectPath": "portadas/2828-2874ddfae5f7a9ef.jpg",
+  "origen": "355x383",
+  "sourceAttachmentId": "attFwCwr9CT3AALuC",
+  "sourceFilename": "Guadalajara-JIRUEQUE-Iglesia de San Bartolomé-Panorámica desde el lado norte-Icon_Map.jpx",
+  "sourceFingerprint": "2874ddfae5f7a9ef",
+  "sourceSize": 24234,
+  "upscaled": true,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/2828-2874ddfae5f7a9ef.jpg"
  },
  "2829": {
   "bytes": 72519,
@@ -26949,17 +26949,17 @@
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/2884-236aa4e9e7d96f88.jpg"
  },
  "2885": {
-  "bytes": 89313,
-  "final": "850x500",
-  "hash": "6fc13874d9455a31",
-  "objectPath": "portadas/2885-33b2937c9864043b.jpg",
-  "origen": "408x240",
-  "sourceAttachmentId": "attSHeWm7Jzjj992p",
+  "bytes": 126849,
+  "final": "850x570",
+  "hash": "99c0e1d1bc0fa425",
+  "objectPath": "portadas/2885-82e541e0d802b8f7.jpg",
+  "origen": "850x570",
+  "sourceAttachmentId": "atti4jV1lkBdUZNEu",
   "sourceFilename": "Guadalajara-TARTANEDO-Iglesia de San Bartolomé-Icon_Map.jpg",
-  "sourceFingerprint": "33b2937c9864043b",
-  "sourceSize": 36428,
-  "upscaled": true,
-  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/2885-33b2937c9864043b.jpg"
+  "sourceFingerprint": "82e541e0d802b8f7",
+  "sourceSize": 960931,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/2885-82e541e0d802b8f7.jpg"
  },
  "2886": {
   "bytes": 87516,
@@ -42354,17 +42354,17 @@
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/3960-9fa89744cd73b5bd.jpg"
  },
  "3961": {
-  "bytes": 90890,
-  "final": "637x850",
-  "hash": "5db2d3c222a532a3",
-  "objectPath": "portadas/3961-f88b9b70d8f4b40d.jpg",
-  "origen": "407x543",
-  "sourceAttachmentId": "attm78eCD0kTu4CpH",
+  "bytes": 92914,
+  "final": "656x850",
+  "hash": "3c8bd9becbf167a0",
+  "objectPath": "portadas/3961-1e5ca4dc53298a99.jpg",
+  "origen": "656x850",
+  "sourceAttachmentId": "att9wtkAumsKs0GGW",
   "sourceFilename": "Lleida-El Vilosell-Iglesia de Santa Maria del Vilosell-Icon_Map.jpg",
-  "sourceFingerprint": "f88b9b70d8f4b40d",
-  "sourceSize": 60349,
-  "upscaled": true,
-  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/3961-f88b9b70d8f4b40d.jpg"
+  "sourceFingerprint": "1e5ca4dc53298a99",
+  "sourceSize": 1074495,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/3961-1e5ca4dc53298a99.jpg"
  },
  "3962": {
   "bytes": 99381,
@@ -88710,6 +88710,19 @@
   "sourceSize": 55952,
   "upscaled": true,
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/871-54515e3b6f28280d.jpg"
+ },
+ "872": {
+  "bytes": 150940,
+  "final": "850x692",
+  "hash": "4aa314ab314fa980",
+  "objectPath": "portadas/872-163dba39be9ef845.jpg",
+  "origen": "850x692",
+  "sourceAttachmentId": "attQTQY2P7XCGYdUb",
+  "sourceFilename": "Barcelona-CERVELLÓ-Iglesia de Sant Esteve (hoy Santa Maria de Cervelló o dels Socors)-Vista general-Icon_Map.png",
+  "sourceFingerprint": "163dba39be9ef845",
+  "sourceSize": 1064990,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/872-163dba39be9ef845.jpg"
  },
  "873": {
   "bytes": 117148,

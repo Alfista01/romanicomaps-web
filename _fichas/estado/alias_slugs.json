@@ -17481,6 +17481,7 @@
   "lleida-camarasa-iglesia-de-sant-miquel-de-montaspre"
  ],
  "4280": [
+  "lleida-olius-iglesia-de-santa-maria-de-vilaro",
   "lleida-olius-santa-maria-del-vilaro-o-del-puig"
  ],
  "4102": [
@@ -17892,6 +17893,7 @@
   "asturias-veranes-yacimiento-romano-medieval-de-veranes"
  ],
  "3870": [
+  "lleida-bossost-iglesia-de-la-asuncion-de-maria",
   "lleida-bossost-iglesia-de-la-mair-de-diu-dera-purificacion"
  ],
  "4289": [
@@ -19026,7 +19028,8 @@
   "guadalajara-ablanque-iglesia-de-nuestra-senora-de-la-asuncion"
  ],
  "3922": [
-  "lleida-coll-de-nargo-iglesia-de-sant-climent"
+  "lleida-coll-de-nargo-iglesia-de-sant-climent",
+  "lleida-coll-de-nargo-iglesia-de-sant-climent-de-coll-de-nargo"
  ],
  "7207": [
   "huesca-bernues-iglesia-de-san-martin-de-tours"
@@ -21118,5 +21121,8 @@
  ],
  "7254": [
   "lleida-artesa-de-segre-santuario-de-la-mare-de-deu-de-refet-talla-de-la-virgen-d"
+ ],
+ "872": [
+  "barcelona-cervello-iglesia-de-sant-esteve-hoy-santa-maria-de-cervello-o-dels-soc"
  ]
 }
