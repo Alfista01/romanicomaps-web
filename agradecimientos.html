@@ -22,41 +22,122 @@
 <meta name="twitter:description" content="Fuentes y agradecimientos de Románico Maps, proyecto dedicado a la difusión del arte románico y el patrimonio románico.">
 <meta name="twitter:image" content="https://romanicomaps.com/img/og-romanicomaps.jpg">
 <meta name="apple-itunes-app" content="app-id=6759716898">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Marcellus+SC&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Marcellus+SC&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-  :root{--piedra:#EAE3D5;--piedra-2:#DED5C3;--linea:#C5B79F;--tinta:#221E17;
-    --tinta-2:#5A5141;--almagre:#9B3A2E;--oro:#B0863C;--max:1100px}
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--piedra);color:var(--tinta);font-family:"EB Garamond",Georgia,serif;
-    font-size:19px;line-height:1.65;-webkit-font-smoothing:antialiased}
-  a{color:var(--almagre);text-decoration:none}a:hover{text-decoration:underline}
-  :focus-visible{outline:3px solid var(--almagre);outline-offset:3px}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
-  h1,h2,h3{font-family:"Marcellus",serif;font-weight:400;line-height:1.12}
-  .topbar{border-bottom:1px solid var(--linea);padding:18px 0}
-  .topbar .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-  .home{font-family:"Marcellus SC",serif;letter-spacing:.2em;font-size:.78rem;color:var(--tinta)}
-  .doc{max-width:760px;margin:0 auto;padding:48px 28px 80px}
-  .doc h1{font-size:clamp(2rem,5vw,3rem);margin-bottom:6px}
-  .doc h2{font-size:1.45rem;margin:34px 0 8px;padding-top:8px}
-  .doc h3{font-size:1.12rem;margin:22px 0 6px;color:var(--tinta-2)}
-  .doc p{margin:10px 0;color:#2c271f}.doc ul,.doc ol{margin:10px 0 10px 24px}.doc li{margin:5px 0}
-  .doc hr{border:none;border-top:1px solid var(--linea);margin:30px 0}.doc em{color:var(--tinta-2)}
-  footer{padding:40px 0;border-top:1px solid var(--linea);text-align:center;color:var(--tinta-2);font-size:.9rem}
-  .nl-frame{display:block;width:100%;max-width:560px;border:1px solid var(--linea);background:#fff;margin:22px 0 0}
-  .nl-legal{font-size:.86rem;color:var(--tinta-2)}
-  .btn{display:inline-block;padding:11px 22px;background:var(--almagre);color:#fff;font-family:"Marcellus SC",serif;letter-spacing:.06em;margin:6px 8px 0 0}
-  .btn.sec{background:transparent;color:var(--almagre);border:1px solid var(--almagre)}
-</style></head><body>
-<div class="topbar"><div class="wrap"><a class="home" href="./">&larr;&nbsp;Rom&aacute;nico Maps</a>
-<span class="home" style="color:var(--almagre)">Agradecimientos</span></div></div>
-<main class="doc"><h1>Agradecimientos</h1>
+/* Identidad común de romanicomaps.com (estilo «Códice»).
+   La usan la portada (_build_site.py) y las fichas de cada iglesia
+   (_fichas/generar_fichas_web.py, que la copia en /i/estilo.css).
+   Cambiar aquí cambia ambas: no dupliques estos valores en otro sitio. */
+:root{--pergamino:#F1EADB;--pergamino-claro:#F8F3E8;--pergamino-oscuro:#E8DEC8;--piedra:#D9CCAF;
+  --linea:#CDBF9F;--tinta:#231D15;--tinta-2:#4F4535;--almagre:#9B3A2E;--almagre-claro:#E3A08F}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--pergamino);color:var(--tinta);font-family:"EB Garamond",Georgia,serif;
+  font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--almagre)}a:hover{color:#6E2219}
+:focus-visible{outline:3px solid var(--almagre);outline-offset:3px}
+img{max-width:100%}
+h1,h2,h3{font-weight:400;margin:0}
+
+/* Logo + nombre */
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tinta)}
+.marca img{width:42px;height:42px;border-radius:10px;display:block}
+.marca span{font-family:"Marcellus SC",serif;font-size:22px;letter-spacing:.05em;white-space:nowrap}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 26px;
+  text-decoration:none;font-family:"Marcellus SC",serif;font-size:18px;letter-spacing:.04em}
+.btn:hover{filter:brightness(1.12)}
+.btn--tinta{background:var(--tinta);color:var(--pergamino-claro)}
+.btn--tinta:hover{color:var(--pergamino-claro)}
+.btn--almagre{background:var(--almagre);color:var(--pergamino-claro)}
+.btn--almagre:hover{color:var(--pergamino-claro)}
+.btn--linea{border:1.5px solid var(--tinta);color:var(--tinta)}
+
+/* Arco de medio punto: el motivo de las fotos */
+.arco{border-radius:999px 999px 0 0;overflow:hidden}
+.arco img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Insignias oficiales de las tiendas, en un marco claro para que no se pierdan */
+.marco-tiendas{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px;
+  padding:16px 22px;background:rgba(248,243,232,.97);border:1px solid var(--linea);text-shadow:none}
+.insignia{display:block;line-height:0}
+.insignia img{display:block;height:48px;width:auto}
+.insignia:hover{filter:brightness(1.15)}
+@media (max-width:760px){
+  .marco-tiendas{padding:12px 14px;gap:12px}
+  .insignia img{height:44px}
+}
+/* Páginas interiores (legales y temáticas). Va DESPUÉS de marca.css. */
+.env{max-width:780px;margin:0 auto;padding:0 20px}
+.cabecera{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--linea);background:var(--pergamino)}
+.barra{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.marca img{width:38px;height:38px}
+.marca span{font-size:20px}
+.barra .btn{min-height:44px;padding:0 18px;font-size:16px}
+.doc{padding-top:40px;padding-bottom:24px}
+.rubrica{margin:0;font-family:"Marcellus SC",serif;letter-spacing:.24em;font-size:15px;color:var(--almagre)}
+.doc h1{margin:10px 0 18px;font-size:clamp(34px,6vw,52px);line-height:1.08}
+.doc h2{margin:38px 0 10px;font-size:clamp(25px,3.6vw,32px);line-height:1.15}
+.doc h3{margin:26px 0 6px;font-size:22px;color:var(--tinta-2)}
+.doc p{margin:12px 0;font-size:19px;line-height:1.6}
+.doc ul,.doc ol{margin:10px 0 10px 24px;padding:0}.doc li{margin:6px 0;font-size:19px;line-height:1.55}
+.doc hr{border:none;border-top:1px solid var(--linea);margin:30px 0}
+.doc em{color:var(--tinta-2)}
+.doc strong{font-weight:600}
+.cta{margin:40px 0 0;padding:34px 22px;background:var(--pergamino-oscuro);text-align:center}
+.cta h2{margin:0;font-size:30px;line-height:1.1}
+.cta h2 em{color:var(--almagre)}
+.cta p{margin:10px auto 0;color:var(--tinta-2);font-size:18px;max-width:460px}
+.cta .marco-tiendas{margin-top:22px}
+.relacionadas{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin:34px 0 0;
+  border-top:1.5px solid var(--tinta);border-bottom:1.5px solid var(--tinta)}
+.relacionadas a{padding:16px 12px;color:var(--tinta);text-decoration:none;font-size:20px;border-right:1px solid var(--linea)}
+.relacionadas a:last-child{border-right:none}
+.relacionadas a:hover{color:var(--almagre)}
+.nl-frame{display:block;width:100%;max-width:560px;border:1px solid var(--linea);background:#fff;margin:22px 0 0}
+.nl-legal{font-size:16px;color:var(--tinta-2)}
+.pie{margin-top:44px;padding:24px 0 36px;border-top:1px solid var(--linea);font-size:16px;color:var(--tinta-2)}
+.pie nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px}
+.pie nav + nav{margin-top:10px}
+.pie p{margin:14px 0 0;text-align:center;font-size:14px}
+@media(max-width:560px){
+  .marca span{font-size:18px}.barra .btn{padding:0 14px;font-size:15px}
+  .cta{padding:28px 12px}.cta .insignia img{height:40px}
+  .relacionadas a{border-right:none;border-bottom:1px solid var(--linea)}
+  .relacionadas a:last-child{border-bottom:none}
+}
+@media(max-width:360px){.marca span{font-size:16px}.marca img{width:32px;height:32px}}
+</style></head>
+<body>
+<header class="cabecera"><div class="env barra">
+  <a class="marca" href="./"><img src="logo_romanico_maps.png" alt="" width="38" height="38"><span>Románico Maps</span></a>
+  <a class="btn btn--almagre" href="./#descargar">Descargar</a>
+</div></header>
+<main class="env doc">
+<h1>Agradecimientos</h1>
 <p>Románico Maps es una aplicación desarrollada por <strong>GATE2K MANAGEMENT SOLUTIONS S.L.N.E.</strong> con el objetivo de facilitar el descubrimiento y estudio del arte románico en la península ibérica.</p>
 <p>La base de datos de Románico Maps se ha elaborado a partir de información obtenida de diversas fuentes públicas, principalmente del portal <a href="https://www.romanicodigital.com">romanicodigital.com</a>, gestionado por la <strong>Fundación Santa María la Real del Patrimonio Histórico</strong> y que ha servido como base fundamental sobre la elaboración del inventario estatal, así como de otros repositorios abiertos, páginas institucionales, artículos académicos y bases de datos públicas.</p>
 <p>De estas fuentes, queremos destacar por su interés, las siguientes:</p>
 <ul><li>enciclopedia.cat</li><li>cultura.gencat.cat</li><li>catalunyamedieval.es</li><li>arquivoltas.com</li><li>monestirs.cat</li><li>Institut Cartogràfic i Geològic de Catalunya (srv.icgc.cat)</li><li>elromanic.wordpress.com</li><li>euskadi.eus Patrimonio Cultural</li><li>Alaveses con el Arte Románico (aaeaar.art)</li><li>www.monumentalnet.org</li><li>SIPCA.es Sistema de Información del Patrimonio Cultural Aragonés</li><li>romanicoaragones.com</li><li>institutogonzalezherrero.es</li><li>artmedieval.net</li><li>arteguias.com</li></ul>
 <p>Los textos descriptivos han sido sintetizados mediante modelos de inteligencia artificial a partir de fuentes públicas, con el objetivo de ofrecer un resumen accesible y divulgativo de cada construcción. La información generada puede incurrir en ciertos errores o redundancias.</p>
 <p>Las imágenes que aparecen en la aplicación proceden, principalmente, de romanicomaps.com, Google Maps, Wikimedia Commons, archivos propios, fotografías aportadas por usuarios y otras fuentes públicas que permiten la visualización abierta de fotografías relacionadas con las construcciones descritas. Dichas imágenes son propiedad de sus respectivos autores.</p>
-<p>Agradecemos expresamente la labor de documentación y difusión realizada por las instituciones y comunidades que han contribuido a la conservación y estudio del patrimonio románico.</p></main>
-<footer><div class="wrap">&copy; 2026 Rom&aacute;nico Maps &middot; GATE2K MANAGEMENT SOLUTIONS &middot; romanicomaps.com</div></footer>
+<p>Agradecemos expresamente la labor de documentación y difusión realizada por las instituciones y comunidades que han contribuido a la conservación y estudio del patrimonio románico.</p>
+</main>
+<footer class="pie"><div class="env">
+  <nav aria-label="El románico">
+    <a href="./">Portada</a>
+    <a href="mapa-romanico-espana.html">Mapa del románico</a>
+    <a href="iglesias-romanicas.html">Iglesias románicas</a>
+    <a href="rutas-romanicas.html">Rutas románicas</a>
+    <a href="monasterios-romanicos.html">Monasterios románicos</a>
+  </nav>
+  <nav aria-label="Información legal">
+    <a href="privacidad.html">Privacidad</a>
+    <a href="aviso-legal.html">Aviso legal</a>
+    <a href="agradecimientos.html">Agradecimientos</a>
+    <a href="condiciones-uso.html">Condiciones de uso</a>
+  </nav>
+  <p>© 2026 Románico Maps · GATE2K Management Solutions · romanicomaps.com</p>
+</div></footer>
 </body></html>

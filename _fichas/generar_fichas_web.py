@@ -54,56 +54,51 @@ INDEXACION = RAIZ / "estado/indexacion.json"
 INDEXACION_INICIAL = {"limite": 1000, "indexadas": []}
 DESTINO_WEB = WEB / "i"
 
-DOMINIO = "https://romanicomaps.com"
-APP_ID = "6759716898"
-PLAY_URL = "https://play.google.com/store/apps/details?id=com.romanicomaps"
-APPSTORE_URL = f"https://apps.apple.com/app/id{APP_ID}"
+# Identidad visual COMPARTIDA con la portada: colores, tipografías, logo,
+# insignias de las tiendas y cifra del catálogo viven en _src/marca.py y
+# _src/marca.css (los usa también _build_site.py). Si cambia el estilo de la
+# web, las fichas lo heredan en la siguiente pasada; no se duplica aquí.
+sys.path.insert(0, str(WEB / "_src"))
+import marca  # noqa: E402
 
-# Identidad visual heredada de _build_site.py (repo web): misma paleta y
-# tipografias, para que la ficha no parezca de otro sitio.
-CSS = """
-:root{--piedra:#EAE3D5;--piedra-2:#DED5C3;--linea:#C5B79F;--tinta:#221E17;
-  --tinta-2:#5A5141;--almagre:#9B3A2E;--oro:#B0863C;--max:720px}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--piedra);color:var(--tinta);
-  font-family:"EB Garamond",Georgia,serif;font-size:18px;line-height:1.6}
-.env{max-width:var(--max);margin:0 auto;padding:24px 20px 56px}
-header{border-bottom:1px solid var(--linea);padding-bottom:14px;margin-bottom:22px}
-header a{color:var(--tinta-2);text-decoration:none;font-family:"Marcellus SC",serif;
-  letter-spacing:.06em;font-size:15px}
-.sitio{display:flex;align-items:center;gap:10px}
-.sitio img{height:30px;width:auto}
-h1{font-family:"Marcellus",serif;font-size:31px;line-height:1.25;margin:16px 0 6px}
-.lugar{font-family:"Marcellus SC",serif;letter-spacing:.07em;color:var(--almagre);
-  font-size:14px;text-transform:uppercase}
-figure{margin:20px 0;border:1px solid var(--linea);background:var(--piedra-2)}
-figure img{display:block;width:100%;height:auto}
-dl{margin:26px 0;border-top:1px solid var(--linea)}
-.fila{display:grid;grid-template-columns:190px 1fr;gap:16px;padding:13px 0;
-  border-bottom:1px solid var(--linea)}
-dt{font-family:"Marcellus SC",serif;letter-spacing:.05em;font-size:14px;
-  color:var(--tinta-2);text-transform:uppercase;padding-top:2px}
-dd{margin:0}
-.cta{margin-top:34px;padding:22px;border:1px solid var(--linea);
-  background:var(--piedra-2);text-align:center}
-.cta h2{font-family:"Marcellus",serif;font-size:21px;font-weight:400;margin-bottom:6px}
-.cta p{color:var(--tinta-2);font-size:16px;margin-bottom:16px}
-.botones{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-block;padding:11px 22px;background:var(--almagre);color:#fff;
-  text-decoration:none;font-family:"Marcellus SC",serif;letter-spacing:.06em;font-size:15px}
-.btn.sec{background:transparent;color:var(--almagre);border:1px solid var(--almagre)}
-.fuente{margin:-12px 0 0;font-size:15px;color:var(--tinta-2)}
-.fuente a{color:var(--almagre)}
-footer{margin-top:36px;padding-top:16px;border-top:1px solid var(--linea);
-  color:var(--tinta-2);font-size:14px;text-align:center}
-footer a{color:var(--almagre)}
-@media(max-width:560px){.fila{grid-template-columns:1fr;gap:3px}h1{font-size:26px}}
+DOMINIO = marca.DOMINIO
+APP_ID = marca.APP_ID
+PLAY_URL = marca.PLAY_URL
+APPSTORE_URL = marca.APP_URL
+
+# Solo lo propio de la ficha; lo común llega de marca.css (va delante).
+CSS_FICHA = """
+.env{max-width:760px;margin:0 auto;padding:0 20px}
+.cabecera{border-bottom:1px solid var(--linea);background:var(--pergamino)}
+.barra{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:12px}
+.marca img{width:38px;height:38px}
+.marca span{font-size:20px}
+.barra .btn{min-height:44px;padding:0 18px;font-size:16px}
+main.env{padding-top:30px;padding-bottom:20px}
+.lugar{margin:0;font-family:"Marcellus SC",serif;letter-spacing:.16em;font-size:15px;color:var(--almagre)}
+h1{margin:10px 0 0;font-size:clamp(32px,6vw,46px);line-height:1.1}
+.foto{margin:28px auto 0;max-width:620px}
+.foto .arco{aspect-ratio:4/3;border:8px solid var(--piedra);border-radius:50% 50% 0 0/34% 34% 0 0}
+dl{margin:30px 0 0;border-top:1.5px solid var(--tinta)}
+.fila{display:grid;grid-template-columns:170px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--linea)}
+dt{font-family:"Marcellus SC",serif;letter-spacing:.14em;font-size:14px;color:var(--almagre);padding-top:3px}
+dd{margin:0;font-size:19px;line-height:1.5}
+.fuente{margin:14px 0 0;font-size:16px;font-style:italic;color:var(--tinta-2)}
+.cta{margin:40px 0 0;padding:34px 22px;background:var(--pergamino-oscuro);text-align:center}
+.cta h2{font-size:30px;line-height:1.1}
+.cta h2 em{color:var(--almagre)}
+.cta p{margin:10px auto 0;color:var(--tinta-2);font-size:18px;max-width:460px}
+.cta .marco-tiendas{margin-top:22px}
+.pie{margin-top:40px;padding:24px 0 36px;border-top:1px solid var(--linea);font-size:16px;color:var(--tinta-2)}
+.pie nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 20px}
+.pie p{margin:12px 0 0;text-align:center;font-size:14px}
+@media(max-width:560px){.fila{grid-template-columns:1fr;gap:3px}.marca span{font-size:18px}.barra .btn{padding:0 14px;font-size:15px}
+  .cta{padding:28px 12px}.cta .insignia img{height:40px}}
+@media(max-width:360px){.marca span{font-size:16px}.marca img{width:32px;height:32px}}
 """
+CSS = marca.css() + CSS_FICHA
 
-FUENTES = ('<link rel="preconnect" href="https://fonts.googleapis.com">'
-           '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
-           '<link href="https://fonts.googleapis.com/css2?family=Marcellus&'
-           'family=Marcellus+SC&family=EB+Garamond&display=swap" rel="stylesheet">')
+FUENTES = marca.FUENTES
 
 
 def slug(texto: str) -> str:
@@ -232,24 +227,31 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
 {estilo}
 </head>
 <body>
-<div class="env">
-<header><a href="{DOMINIO}/" class="sitio">Románico Maps</a></header>
+<header class="cabecera"><div class="env barra">
+  <a class="marca" href="{DOMINIO}/"><img src="/{marca.LOGO}" alt="" width="38" height="38"><span>Románico Maps</span></a>
+  <a class="btn btn--almagre" href="#descargar">Descargar</a>
+</div></header>
+<main class="env">
 <p class="lugar">{esc(lugar)}</p>
 <h1>{esc(ig.get('nombre'))}</h1>
-<figure><img src="{esc(portada)}" alt="{esc(ig.get('nombre'))}" loading="lazy"></figure>
+<figure class="foto"><div class="arco"><img src="{esc(portada)}" alt="{esc(ig.get('nombre'))}"></div></figure>
 <dl>{filas}</dl>
 {fuente}
-<div class="cta">
-  <h2>Ver en Románico Maps</h2>
-  <p>Mapa, fotografías y ficha completa de más de 6.500 iglesias
-     románicas de la Península.</p>
-  <div class="botones">
-    <a class="btn" href="{APPSTORE_URL}">App Store</a>
-    <a class="btn sec" href="{play_url}">Google Play</a>
-  </div>
-</div>
-<footer><a href="{DOMINIO}/">romanicomaps.com</a></footer>
-</div>
+<section id="descargar" class="cta">
+  <h2>Ver en <em>Románico Maps</em></h2>
+  <p>Mapa, fotografías y ficha completa de {marca.CIFRA_IGLESIAS} iglesias románicas de la Península.</p>
+{marca.insignias(raiz="/", play_url=play_url, sangria="  ")}
+</section>
+</main>
+<footer class="pie"><div class="env">
+  <nav aria-label="Románico Maps">
+    <a href="{DOMINIO}/">Portada</a>
+    <a href="{DOMINIO}/mapa-romanico-espana.html">Mapa del románico</a>
+    <a href="{DOMINIO}/privacidad.html">Privacidad</a>
+    <a href="{DOMINIO}/aviso-legal.html">Aviso legal</a>
+  </nav>
+  <p>© Románico Maps · romanicomaps.com</p>
+</div></footer>
 </body>
 </html>"""
 

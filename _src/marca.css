@@ -1,0 +1,44 @@
+/* Identidad común de romanicomaps.com (estilo «Códice»).
+   La usan la portada (_build_site.py) y las fichas de cada iglesia
+   (_fichas/generar_fichas_web.py, que la copia en /i/estilo.css).
+   Cambiar aquí cambia ambas: no dupliques estos valores en otro sitio. */
+:root{--pergamino:#F1EADB;--pergamino-claro:#F8F3E8;--pergamino-oscuro:#E8DEC8;--piedra:#D9CCAF;
+  --linea:#CDBF9F;--tinta:#231D15;--tinta-2:#4F4535;--almagre:#9B3A2E;--almagre-claro:#E3A08F}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--pergamino);color:var(--tinta);font-family:"EB Garamond",Georgia,serif;
+  font-size:19px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--almagre)}a:hover{color:#6E2219}
+:focus-visible{outline:3px solid var(--almagre);outline-offset:3px}
+img{max-width:100%}
+h1,h2,h3{font-weight:400;margin:0}
+
+/* Logo + nombre */
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--tinta)}
+.marca img{width:42px;height:42px;border-radius:10px;display:block}
+.marca span{font-family:"Marcellus SC",serif;font-size:22px;letter-spacing:.05em;white-space:nowrap}
+
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 26px;
+  text-decoration:none;font-family:"Marcellus SC",serif;font-size:18px;letter-spacing:.04em}
+.btn:hover{filter:brightness(1.12)}
+.btn--tinta{background:var(--tinta);color:var(--pergamino-claro)}
+.btn--tinta:hover{color:var(--pergamino-claro)}
+.btn--almagre{background:var(--almagre);color:var(--pergamino-claro)}
+.btn--almagre:hover{color:var(--pergamino-claro)}
+.btn--linea{border:1.5px solid var(--tinta);color:var(--tinta)}
+
+/* Arco de medio punto: el motivo de las fotos */
+.arco{border-radius:999px 999px 0 0;overflow:hidden}
+.arco img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* Insignias oficiales de las tiendas, en un marco claro para que no se pierdan */
+.marco-tiendas{display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px;
+  padding:16px 22px;background:rgba(248,243,232,.97);border:1px solid var(--linea);text-shadow:none}
+.insignia{display:block;line-height:0}
+.insignia img{display:block;height:48px;width:auto}
+.insignia:hover{filter:brightness(1.15)}
+@media (max-width:760px){
+  .marco-tiendas{padding:12px 14px;gap:12px}
+  .insignia img{height:44px}
+}

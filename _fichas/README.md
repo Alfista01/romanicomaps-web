@@ -10,6 +10,7 @@ este repo**. La app no las genera ni las publica: sus releases no tocan la web.
 | `generar_fichas_web.py` | Genera el árbol `i/` (HTML, `sitemap.xml`, alias de URL, indexación por tandas). |
 | `generar_portadas_web.py` | Sube a Supabase Storage solo las portadas nuevas o cambiadas. |
 | `estado/` | `manifiesto_portadas.json`, `alias_slugs.json`, `indexacion.json`. Siempre en el mismo commit que `i/`. |
+| Identidad visual | Común con la portada: `_src/marca.py` y `_src/marca.css` (se copian en `i/estilo.css`). No se duplica aquí. |
 | `tests/` | `python3 -m unittest discover -s _fichas/tests -p 'test_*.py'` |
 
 ## Uso

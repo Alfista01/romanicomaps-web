@@ -6,15 +6,24 @@ tiene su único sitio de edición:
 | Parte | Ficheros publicados | Dónde se edita | Quién la genera |
 |---|---|---|---|
 | Portada | `index.html` | `_src/portada.html` (texto y estructura), `_src/portada.css` (estilo), `_build_site.py` (SEO, FAQ, precio) | `python3 _build_site.py` |
-| Legales | `privacidad.html`, `aviso-legal.html`, `agradecimientos.html`, `condiciones-uso.html` | `_src/*.md` | `python3 _build_site.py` |
+| Legales | `privacidad.html`, `aviso-legal.html`, `agradecimientos.html`, `condiciones-uso.html` | `_src/*.md` (texto), `_src/interior.css` (estilo) | `python3 _build_site.py` |
 | `sitemap.xml`, `robots.txt`, `CNAME` | — | `_build_site.py` | `python3 _build_site.py` |
-| Páginas temáticas | `mapa-romanico-espana.html`, `iglesias-romanicas.html`, `rutas-romanicas.html`, `monasterios-romanicos.html` | a mano, en el propio fichero | nadie (el generador solo las comprueba) |
+| Páginas temáticas | `mapa-romanico-espana.html`, `iglesias-romanicas.html`, `rutas-romanicas.html`, `monasterios-romanicos.html` | `_src/paginas/<fichero>` (texto), `_build_site.py` (SEO en `PAGINAS`), `_src/interior.css` (estilo) | `python3 _build_site.py` |
 | Fichas | `i/…` | `_fichas/` (ver su README) | tarea nocturna 23:40 |
+
+## Identidad común (portada y fichas)
+
+Colores, tipografías, logo, botones, arco, insignias de las tiendas, datos de
+la app y la cifra del catálogo («casi 7.000») viven **solo** en
+`_src/marca.css` y `_src/marca.py`. Los usan `_build_site.py` (portada) y
+`_fichas/generar_fichas_web.py` (fichas `/i/`). Si los cambias, la portada se
+actualiza al regenerar y las fichas en la siguiente pasada de la tarea
+nocturna (o lanzándola a mano). No copies esos valores en otro fichero.
 
 ## Reglas
 
-1. **Nunca edites a mano** `index.html`, las legales, `sitemap.xml` ni
-   `robots.txt`: el generador los sobrescribe. Edita `_src/` y regenera.
+1. **Nunca edites a mano** `index.html`, las temáticas, las legales,
+   `sitemap.xml` ni `robots.txt`: el generador los sobrescribe. Edita `_src/` y regenera.
 2. El **SEO de todas las páginas generadas** (title, description, canonical,
    Open Graph, Twitter, datos estructurados) está **solo** en `_build_site.py`
    (`PAGINAS`, `cabecera()`, `datos_estructurados()`). Así no se pierde al
@@ -44,7 +53,7 @@ git add -A && git commit                # y merge a main --no-ff tras revisarlo
 
 Si el generador encuentra un problema, **no escribe nada** y lista los errores.
 `python3 _build_site.py --comprobar` revisa lo que hay ahora en disco sin
-generar (útil tras tocar una página temática a mano).
+generar (útil para revisar lo publicado).
 
 No publiques entre las 23:30 y las 00:30: a esa hora la tarea nocturna de las
 fichas trabaja sobre `main`.
