@@ -297,7 +297,8 @@ def portada():
     cuerpo = sin_comentario_inicial((SRC / "portada.html").read_text(encoding="utf-8"))
     cuerpo = rellenar(cuerpo, {
         "TIENDAS": marca.insignias(), "EMAIL": EMAIL, "FAQ": faq_html(),
-        "QR_APP": qr_svg(APP_URL), "QR_PLAY": qr_svg(PLAY_URL),
+        "QR_APP": qr_svg(marca.url_app_store("web_qr")),
+        "QR_PLAY": qr_svg(marca.url_play(utm_source=marca.CAMPANA_WEB, utm_medium="qr")),
         "PRECIO_PRIMER_ANIO": PRECIO_PRIMER_ANIO, "PRECIO_RENOVACION": PRECIO_RENOVACION,
         "ANIO": str(HOY.year),
         "ENLACE_NEWSLETTER": '\n      <a href="newsletter.html">Newsletter</a>' if NEWSLETTER_WEB else "",

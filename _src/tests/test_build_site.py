@@ -27,6 +27,13 @@ class TestSitio(unittest.TestCase):
         cls.salida = MOD.construir()
         cls.idx = cls.salida["index.html"]
 
+    def test_botones_de_tienda_con_campana_web(self):
+        # R5: la web principal mide sus descargas como campaña "web".
+        for nombre in ("index.html", "mapa-romanico-espana.html"):
+            html = self.salida[nombre]
+            self.assertIn("apps.apple.com/app/id6759716898?ct=web", html, nombre)
+            self.assertIn("referrer=utm_source%3Dweb%26utm_medium%3Dboton", html, nombre)
+
     def test_todo_lo_generado_pasa_las_comprobaciones(self):
         self.assertEqual(MOD.comprobar(self.salida), [])
 

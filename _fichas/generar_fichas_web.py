@@ -191,7 +191,10 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
     # B5 · deferred deep link (solo Android): Play conserva `referrer` y lo
     # entrega en el primer arranque, para aterrizar en ESTA iglesia en vez de
     # en el mapa. iOS no tiene equivalente, de ahi que su boton vaya limpio.
-    play_url = f"{PLAY_URL}&referrer=idCode%3D{codigo}"
+    # R5: la campaña ficha_web va en los dos botones (Play en el referrer,
+    # App Store en `ct`). La app lee idCode y utm_* del mismo referrer.
+    play_url = marca.url_play(utm_source=marca.CAMPANA_FICHA, idCode=codigo)
+    app_url = marca.url_app_store(marca.CAMPANA_FICHA)
     filas = ""
     for etiqueta, valor in (("Tipo", ig.get("tipoConstruccion")),
                             ("Datación", ig.get("datacion")),
@@ -240,7 +243,7 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
 <section id="descargar" class="cta">
   <h2>Ver en <em>Románico Maps</em></h2>
   <p>Mapa, fotografías y ficha completa de {marca.CIFRA_IGLESIAS} iglesias románicas de la Península.</p>
-{marca.insignias(raiz="/", play_url=play_url, sangria="  ")}
+{marca.insignias(raiz="/", play_url=play_url, app_url=app_url, sangria="  ")}
 </section>
 </main>
 <footer class="pie"><div class="env">
