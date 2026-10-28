@@ -86631,6 +86631,19 @@
   "upscaled": true,
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7252-f7a7f8f2e9b77107.jpg"
  },
+ "7254": {
+  "bytes": 135233,
+  "final": "850x597",
+  "hash": "f41e7d7e6d36ff3d",
+  "objectPath": "portadas/7254-dfe70c28dfe3a3a5.jpg",
+  "origen": "850x597",
+  "sourceAttachmentId": "att6zfzVGJjDwOy3k",
+  "sourceFilename": "image.png",
+  "sourceFingerprint": "dfe70c28dfe3a3a5",
+  "sourceSize": 1125180,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7254-dfe70c28dfe3a3a5.jpg"
+ },
  "726": {
   "bytes": 142034,
   "final": "680x850",
