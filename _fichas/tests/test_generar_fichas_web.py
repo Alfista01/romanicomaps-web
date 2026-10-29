@@ -208,7 +208,11 @@ class IdentidadTest(unittest.TestCase):
 
     def test_google_play_conserva_el_referrer_de_la_iglesia(self):
         html = MOD.render(iglesia(), PORTADA)
-        self.assertIn("id=com.romanicomaps&amp;referrer=idCode%3D182", html)
+        self.assertIn("id=com.romanicomaps&amp;referrer=utm_source%3Dficha_web%26idCode%3D182", html)
+
+    def test_app_store_con_campana_ficha_web(self):
+        html = MOD.render(iglesia(), PORTADA)
+        self.assertIn('href="https://apps.apple.com/app/id6759716898?ct=ficha_web"', html)
 
     def test_cifra_del_catalogo_comun(self):
         html = MOD.render(iglesia(), PORTADA)
