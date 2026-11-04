@@ -21033,6 +21033,19 @@
   "upscaled": true,
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/2470-1b5f9c008253b1d4.jpg"
  },
+ "2471": {
+  "bytes": 169417,
+  "final": "850x674",
+  "hash": "bebc4950898cfc08",
+  "objectPath": "portadas/2471-c137a6ed16442469.jpg",
+  "origen": "850x674",
+  "sourceAttachmentId": "att1T1yap7QpKSU2L",
+  "sourceFilename": "Girona-Maçanet de la Selva-Antiguo monasterio de Santa Maria de Vall de Maria-Icon_Map.jpg",
+  "sourceFingerprint": "c137a6ed16442469",
+  "sourceSize": 329065,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/2471-c137a6ed16442469.jpg"
+ },
  "2472": {
   "bytes": 94396,
   "final": "567x850",
@@ -34279,6 +34292,19 @@
   "sourceSize": 146270,
   "upscaled": false,
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/3394-76f5676ef4e205b4.jpg"
+ },
+ "3395": {
+  "bytes": 183278,
+  "final": "850x661",
+  "hash": "3da0bc3e18d03db8",
+  "objectPath": "portadas/3395-78c27cda48ab3724.jpg",
+  "origen": "850x661",
+  "sourceAttachmentId": "atth9mGywlE3owx34",
+  "sourceFilename": "Huesca-San Juan de la Peña-Real Monasterio de San Juan Bautista-Vista general del emplazamiento-Icon_Map.jpg",
+  "sourceFingerprint": "78c27cda48ab3724",
+  "sourceSize": 246387,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/3395-78c27cda48ab3724.jpg"
  },
  "3396": {
   "bytes": 202688,
@@ -48098,6 +48124,19 @@
   "sourceSize": 989987,
   "upscaled": true,
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/4367-0241c621d6eb6316.jpg"
+ },
+ "4368": {
+  "bytes": 125942,
+  "final": "850x705",
+  "hash": "102f4bf032e3f90f",
+  "objectPath": "portadas/4368-50488aeffe60996b.jpg",
+  "origen": "788x654",
+  "sourceAttachmentId": "attaFiHNvYta6Rk0n",
+  "sourceFilename": "Lleida-Sarroca de Bellera-Iglesia de la Mare de Déu de Bellera-Icon_Map.png",
+  "sourceFingerprint": "50488aeffe60996b",
+  "sourceSize": 885519,
+  "upscaled": true,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/4368-50488aeffe60996b.jpg"
  },
  "4369": {
   "bytes": 70577,
@@ -65245,6 +65284,19 @@
   "sourceSize": 202398,
   "upscaled": false,
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/557-d15398a826170bc0.jpg"
+ },
+ "5570": {
+  "bytes": 79237,
+  "final": "850x545",
+  "hash": "60ab637692386593",
+  "objectPath": "portadas/5570-ae1fd626533b12ae.jpg",
+  "origen": "752x482",
+  "sourceAttachmentId": "attxrO8sxzCB3xLtl",
+  "sourceFilename": "Salamanca-GAVILANES (CUADRILLEROS)-Ermita-Exterior-Icon_Map.jpg",
+  "sourceFingerprint": "ae1fd626533b12ae",
+  "sourceSize": 91372,
+  "upscaled": true,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/5570-ae1fd626533b12ae.jpg"
  },
  "5571": {
   "bytes": 75126,
