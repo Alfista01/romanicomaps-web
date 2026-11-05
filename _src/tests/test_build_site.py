@@ -108,5 +108,34 @@ class TestSitio(unittest.TestCase):
             MOD.rellenar("<p>{{NO_EXISTE}}</p>", {}, "prueba")
 
 
+class TestUrlsLegales(unittest.TestCase):
+    """L6: las cuatro URLs legales no pueden desaparecer ni cambiar de nombre."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.salida = MOD.construir()
+
+    def test_las_cuatro_se_generan(self):
+        for archivo in MOD.URLS_LEGALES:
+            self.assertIn(archivo, self.salida)
+
+    def test_falla_si_falta_una(self):
+        for archivo in MOD.URLS_LEGALES:
+            salida = {k: v for k, v in self.salida.items() if k != archivo}
+            self.assertTrue(any(archivo in e for e in MOD.comprobar(salida)), archivo)
+
+    def test_falla_si_se_renombra_una(self):
+        original = dict(MOD.PAGINAS)
+        try:
+            MOD.PAGINAS["terminos.html"] = MOD.PAGINAS.pop("condiciones-uso.html")
+            salida = dict(self.salida)
+            salida["terminos.html"] = salida.pop("condiciones-uso.html")
+            errores = MOD.comprobar(salida)
+        finally:
+            MOD.PAGINAS.clear()
+            MOD.PAGINAS.update(original)
+        self.assertTrue(any("condiciones-uso.html" in e for e in errores))
+
+
 if __name__ == "__main__":
     unittest.main()

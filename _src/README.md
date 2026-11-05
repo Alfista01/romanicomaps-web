@@ -39,6 +39,20 @@ nocturna (o lanzándola a mano). No copies esos valores en otro fichero.
 7. Las cifras del Folio I y II (censo por provincias y siglos) son del export
    del 2026-10-24. Al actualizarlas, cámbialas en `_src/portada.html`.
 
+## Textos legales (única fuente)
+
+Los textos legales viven **solo** en `_src/*.md` (Condiciones de uso, Política
+de privacidad, Aviso legal y Agradecimientos). La app no lleva copias desde la
+1.7.14: abre estas páginas en su navegador in-app. Las Condiciones de uso
+tienen un cuerpo neutro y un anexo por tienda (Apple App Store y Google Play);
+el Aviso legal es solo informativo y remite a ellas para todo lo contractual.
+
+`condiciones-uso.html` está enlazada desde **cuatro sitios**: la app, el paywall
+de RevenueCat, el EULA de App Store Connect y el estado de operador de Play
+Console. Las otras tres URLs legales las enlaza la app. **Cambiar o borrar
+cualquiera obliga a actualizar esos sitios**; el generador falla si falta
+alguna (`URLS_LEGALES` en `_build_site.py`).
+
 ## Flujo
 
 ```bash

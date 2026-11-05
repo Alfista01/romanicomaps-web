@@ -136,6 +136,10 @@ PAGINAS = {
 # Paginas tematicas (generadas desde _src/paginas/, con bloque de descarga y enlaces cruzados).
 TEMATICAS = [a for a, p in PAGINAS.items() if "cuerpo" in p]
 LEGALES = [a for a, p in PAGINAS.items() if "fuente" in p]
+# L6: estas cuatro URLs las enlazan la app (1.7.14+), el paywall de RevenueCat,
+# el EULA de App Store Connect y el estado de operador de Play Console.
+# No se pueden borrar ni renombrar sin cambiar esos cuatro sitios.
+URLS_LEGALES = ("condiciones-uso.html", "privacidad.html", "aviso-legal.html", "agradecimientos.html")
 
 
 # --- Utilidades ----------------------------------------------------------------
@@ -478,6 +482,10 @@ def comprobar(salida):
     for archivo in PAGINAS:
         if PAGINAS[archivo].get("sitemap", True) and archivo not in paginas:
             errores.append(f"{archivo}: no se ha generado")
+    for archivo in URLS_LEGALES:
+        if archivo not in PAGINAS or archivo not in paginas:
+            errores.append(f"{archivo}: página legal ausente o renombrada (la enlazan la app, "
+                           "el paywall y las tiendas; ver _src/README.md)")
     for archivo, doc in paginas.items():
         errores += comprobar_pagina(archivo, doc, existe)
         # Todas con la identidad común (y sin restos del estilo anterior).
