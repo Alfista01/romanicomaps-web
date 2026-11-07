@@ -1,6 +1,6 @@
 # Condiciones de Uso de Románico Maps
 
-Última actualización: 05/11/2026
+Última actualización: 07/11/2026
 
 ## 1. Titular
 
@@ -53,7 +53,7 @@ GATE2K puede moderar, ocultar o eliminar contenidos ilícitos, ofensivos, fraudu
 
 ## 9. Uso aceptable
 
-El Usuario se compromete a no usar la App con fines ilícitos; no publicar contenido que vulnere derechos de terceros; no interferir en el servicio; no acceder sin autorización a sistemas restringidos; no realizar extracción automatizada de datos; y no usar los contenidos para entrenar modelos de inteligencia artificial sin autorización expresa de GATE2K.
+El Usuario se compromete a no usar la App con fines ilícitos; no publicar contenido que vulnere derechos de terceros; no incluir enlaces ni direcciones web en los comentarios, que por seguridad de los usuarios no se admiten; no interferir en el servicio; no acceder sin autorización a sistemas restringidos; no realizar extracción automatizada de datos; y no usar los contenidos para entrenar modelos de inteligencia artificial sin autorización expresa de GATE2K.
 
 ## 10. Propiedad intelectual
 
