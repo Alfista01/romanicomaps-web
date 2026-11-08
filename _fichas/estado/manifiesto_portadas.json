@@ -86193,14 +86193,14 @@
   "bytes": 149157,
   "final": "850x613",
   "hash": "05ec37408b7ce761",
-  "objectPath": "portadas/7208-7e29413f47f69826.jpg",
+  "objectPath": "portadas/7208-931635164c6a8d61.jpg",
   "origen": "790x570",
   "sourceAttachmentId": "attI4w98gJjtJ4GVx",
-  "sourceFilename": "Huesca-Hecho - Echo-Ermita de Esgüés-Icon_Map.png",
-  "sourceFingerprint": "7e29413f47f69826",
+  "sourceFilename": "Huesca-Hecho - Echo-Ermita de Escagüés-Icon_Map.png",
+  "sourceFingerprint": "931635164c6a8d61",
   "sourceSize": 1025972,
   "upscaled": true,
-  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7208-7e29413f47f69826.jpg"
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7208-931635164c6a8d61.jpg"
  },
  "7209": {
   "bytes": 122968,
@@ -86695,6 +86695,32 @@
   "sourceSize": 1125180,
   "upscaled": false,
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7254-dfe70c28dfe3a3a5.jpg"
+ },
+ "7255": {
+  "bytes": 164217,
+  "final": "850x526",
+  "hash": "1f7f4f849973ef5c",
+  "objectPath": "portadas/7255-44a6b19f35a551ac.jpg",
+  "origen": "850x526",
+  "sourceAttachmentId": "attBvrCXA1J5HIW1j",
+  "sourceFilename": "image.png",
+  "sourceFingerprint": "44a6b19f35a551ac",
+  "sourceSize": 1121044,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7255-44a6b19f35a551ac.jpg"
+ },
+ "7256": {
+  "bytes": 86095,
+  "final": "850x560",
+  "hash": "47409f050df29d31",
+  "objectPath": "portadas/7256-fe46cf332e1d3b9e.jpg",
+  "origen": "850x560",
+  "sourceAttachmentId": "attZHexZyiPOfYCHd",
+  "sourceFilename": "image.png",
+  "sourceFingerprint": "fe46cf332e1d3b9e",
+  "sourceSize": 733566,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7256-fe46cf332e1d3b9e.jpg"
  },
  "726": {
   "bytes": 142034,
