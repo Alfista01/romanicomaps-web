@@ -41,11 +41,14 @@ python3 _fichas/generar_portadas_web.py --export "$TMP/export.json" \
 python3 _fichas/generar_fichas_web.py --completa --export "$TMP/export.json" \
   --manifest "$TMP/manifiesto.json" --salida "$TMP/i" | tee "$TMP/fichas.txt"
 cp "$TMP/manifiesto.json" _fichas/estado/manifiesto_portadas.json
-DETALLE="$(grep -E 'altas|abiertas' "$TMP/fichas.txt" | sed 's/^ *//' | tr '\n' ' ' | tr -d '"|')"
+# Cambios del día para la sincronización de la app (1.7.16+): romanicomaps.com/sync/
+python3 _fichas/generar_sync.py --export "$TMP/export.json" --salida "$WEB/sync" \
+  --huellas _fichas/estado/sync_huellas.json | tee -a "$TMP/fichas.txt"
+DETALLE="$(grep -E 'altas|abiertas|^sync' "$TMP/fichas.txt" | sed 's/^ *//' | tr '\n' ' ' | tr -d '"|')"
 
 # 4. ¿Cambia algo frente a lo publicado?
 rsync -a --delete "$TMP/i/" "$WEB/i/"
-CAMBIOS="$(git status --porcelain -- i _fichas/estado | wc -l | tr -d ' ')"
+CAMBIOS="$(git status --porcelain -- i sync _fichas/estado | wc -l | tr -d ' ')"
 if [ "$CAMBIOS" -eq 0 ]; then
   echo "RESULTADO: sin_cambios | $DETALLE"; exit 0
 fi
@@ -54,7 +57,7 @@ if [ "$DRY_RUN" -eq 1 ]; then
 fi
 
 # 5. Publicar: fichas y estado en un único commit (GitHub Pages sirve main).
-git add -A i _fichas/estado
+git add -A i sync _fichas/estado
 git commit -q -m "fichas web: actualización $HOY" -m "$DETALLE" -m "$FIRMA"
 # Push con reintentos: un corte breve de red no debe tirar la publicación.
 # Si falla, deja en el log un diagnóstico (¿se llega a GitHub y a otra web?).
