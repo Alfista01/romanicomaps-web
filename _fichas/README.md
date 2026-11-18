@@ -32,3 +32,16 @@ bash /Volumes/DevSSD_2TB/RomanicoMaps/romanicomaps-web/_fichas/tarea_nocturna.sh
 abre todas) y cuáles ya están abiertas (nunca se vuelven a cerrar). Para pasar a
 la siguiente tanda: cambiar `limite`, commit en `main`, y la siguiente pasada lo
 aplica.
+
+## Sincronización de la app (`/sync/`, desde la 1.7.16)
+
+La misma pasada nocturna publica en `romanicomaps.com/sync/` los cambios del
+catálogo para la app (`generar_sync.py`): compara el export de hoy con el de la
+noche anterior (huellas en `estado/sync_huellas.json`) y deja un
+`cambios-<fecha>.json` con las iglesias cambiadas o nuevas y las bajas, más
+`manifiesto.json` con los últimos 45 días. La app 1.7.16+ se sincroniza con
+estos ficheros, sin pasar por Supabase ni Airtable; las versiones anteriores
+siguen con `airtable-proxy`. Las iglesias **nunca se borran en Airtable, solo
+se desactivan** (una desactivada llega como baja). Si el export trae más de un
+10 % menos de iglesias que el anterior, la pasada se para sin publicar.
+
