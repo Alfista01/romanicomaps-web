@@ -90,8 +90,19 @@ class TandaTest(unittest.TestCase):
     def test_sitemap_lista_solo_urls_canonicas(self):
         xml = MOD.sitemap([MOD.url_canonica(iglesia())])
         self.assertIn("<loc>https://romanicomaps.com/i/182/girona-sant-esteve-d-en-bas-"
-                      "iglesia-de-sant-esteve</loc>", xml)
+                      "iglesia-de-sant-esteve/</loc>", xml)
         self.assertEqual(xml.count("<url>"), 1)
+
+    def test_r16_la_url_oficial_termina_en_barra_y_es_la_misma_en_todo(self):
+        # GitHub Pages redirige la URL sin barra: la oficial debe llevarla.
+        ig = iglesia()
+        url = MOD.url_canonica(ig)
+        self.assertTrue(url.endswith("/"))
+        html = MOD.render(ig, PORTADA)
+        self.assertIn(f'<link rel="canonical" href="{url}">', html)
+        self.assertIn(f'<meta property="og:url" content="{url}">', html)
+        self.assertIn(f"app-argument={url}", html)
+        self.assertIn(f"<loc>{url}</loc>", MOD.sitemap([url]))
 
 
 class FuenteTest(unittest.TestCase):
