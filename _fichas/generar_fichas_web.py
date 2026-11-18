@@ -138,9 +138,14 @@ ROBOTS_CERRADA = "noindex, nofollow"
 
 
 def url_canonica(ig: dict) -> str:
+    """URL oficial de la ficha. Termina en «/» (R16, 2026-11-18): GitHub Pages
+    sirve cada ficha como carpeta y redirige con 301 la URL sin barra; si la
+    canonica, og:url, el app-argument y el sitemap la llevan sin barra, Google
+    no indexa la ficha («Pagina con redireccion»). Los enlaces sin barra ya
+    compartidos siguen funcionando por esa misma redireccion."""
     s = slug(ig.get("idUnico", ""))
     codigo = ig["idCode"]
-    return f"{DOMINIO}/i/{codigo}/{s}" if s else f"{DOMINIO}/i/{codigo}"
+    return f"{DOMINIO}/i/{codigo}/{s}/" if s else f"{DOMINIO}/i/{codigo}/"
 
 
 def pdf_fuente(ig: dict) -> str | None:
