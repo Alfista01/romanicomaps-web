@@ -86722,6 +86722,19 @@
   "upscaled": false,
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7256-fe46cf332e1d3b9e.jpg"
  },
+ "7257": {
+  "bytes": 107042,
+  "final": "850x712",
+  "hash": "2b434ba5d0f0704b",
+  "objectPath": "portadas/7257-1bf140156679ce6a.jpg",
+  "origen": "850x712",
+  "sourceAttachmentId": "attXjHCxIu8aF3XdN",
+  "sourceFilename": "Navarra-LETE-Imagen de la Virgen con el Niño-Icon_Map.png",
+  "sourceFingerprint": "1bf140156679ce6a",
+  "sourceSize": 997440,
+  "upscaled": false,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/7257-1bf140156679ce6a.jpg"
+ },
  "726": {
   "bytes": 142034,
   "final": "680x850",
