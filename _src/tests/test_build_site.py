@@ -139,3 +139,35 @@ class TestUrlsLegales(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestEnlacesCampana(unittest.TestCase):
+    """R15: /g/<campaña>/ con tarjeta de Facebook y redirección por dispositivo."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.salida = MOD.construir()
+
+    def test_una_pagina_por_campana(self):
+        for c in MOD.campanas():
+            self.assertIn(f"g/{c}/index.html", self.salida)
+
+    def test_enlaces_con_campana(self):
+        doc = self.salida["g/pasion/index.html"]
+        self.assertIn("https://apps.apple.com/app/apple-store/id6759716898?pt=128264524&ct=fb_grupo_pasion&mt=8", doc)
+        self.assertIn("utm_source%3Dfacebook%26utm_medium%3Dgrupo%26utm_campaign%3Dpasion", doc)
+
+    def test_tarjeta_canonical_base_y_noindex(self):
+        doc = self.salida["g/norte/index.html"]
+        self.assertIn('<link rel="canonical" href="https://romanicomaps.com/g/norte/">', doc)
+        self.assertIn('<meta property="og:url" content="https://romanicomaps.com/g/norte/">', doc)
+        self.assertIn('<meta property="og:image" content="https://romanicomaps.com/img/og-romanicomaps.jpg">', doc)
+        self.assertIn('<base href="/">', doc)
+        self.assertIn('content="noindex, follow"', doc)
+
+    def test_fuera_del_sitemap(self):
+        self.assertNotIn("/g/", self.salida["sitemap.xml"])
+
+    def test_nombre_de_campana_no_valido(self):
+        self.assertIsNone(MOD.RE_CAMPANA.match("Pasión con espacios"))
+        self.assertIsNotNone(MOD.RE_CAMPANA.match("romanico-espana"))

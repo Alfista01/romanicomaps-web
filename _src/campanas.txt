@@ -1,0 +1,8 @@
+# R15 — Enlaces cortos de descarga por campaña: https://romanicomaps.com/g/<campaña>/
+# Una campaña por línea (minúsculas, números y guiones). Añadir una = añadir una
+# línea y regenerar con _build_site.py. Las páginas no van al sitemap (noindex).
+pasion
+norte
+romanico-espana
+mundo-romanico
+arte-romanico
