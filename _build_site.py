@@ -144,7 +144,11 @@ URLS_LEGALES = ("condiciones-uso.html", "privacidad.html", "aviso-legal.html", "
 
 # --- Utilidades ----------------------------------------------------------------
 def url_de(archivo):
-    return f"{DOMINIO}/" if archivo == "index.html" else f"{DOMINIO}/{archivo}"
+    if archivo == "index.html":
+        return f"{DOMINIO}/"
+    if archivo.endswith("/index.html"):   # p. ej. g/pasion/index.html → /g/pasion/
+        return f"{DOMINIO}/{archivo[:-len('index.html')]}"
+    return f"{DOMINIO}/{archivo}"
 
 
 def esc(texto):
@@ -372,6 +376,59 @@ def paginas_newsletter():
             "newsletter-confirmada.html": pagina_interior("newsletter-confirmada.html", ok, robots="noindex, follow")}
 
 
+# --- R15: enlaces cortos de campaña /g/<campaña>/ ------------------------------------------
+# Provider token de App Store Connect (Analytics → Campañas): sin él, App Store
+# Connect no atribuye la descarga a la campaña `ct`.
+APP_STORE_PT = "128264524"
+RE_CAMPANA = re.compile(r"^[a-z0-9][a-z0-9-]{1,38}[a-z0-9]$")
+
+
+def campanas():
+    """Nombres de _src/campanas.txt (sin comentarios ni líneas vacías), validados."""
+    nombres = [l.strip() for l in (SRC / "campanas.txt").read_text(encoding="utf-8").splitlines()
+               if l.strip() and not l.strip().startswith("#")]
+    malos = [n for n in nombres if not RE_CAMPANA.match(n)]
+    if malos or len(set(nombres)) != len(nombres):
+        raise SystemExit(f"_src/campanas.txt: nombres no válidos o repetidos: {malos or nombres}")
+    return nombres
+
+
+def enlaces_campana(c):
+    """(iOS, Android) con la campaña: ct + pt para App Store Connect; utm para Google Play."""
+    ct = f"fb_grupo_{c}"
+    ios = f"https://apps.apple.com/app/apple-store/id{marca.APP_ID}?pt={APP_STORE_PT}&ct={ct}&mt=8"
+    android = marca.url_play(utm_source="facebook", utm_medium="grupo", utm_campaign=c)
+    return ios, android
+
+
+def paginas_campana():
+    """Una página por campaña: tarjeta para Facebook y redirección a la tienda
+    según el dispositivo (iPhone/iPad → App Store; Android → Google Play;
+    ordenador → los dos botones). Fuera del sitemap y con noindex."""
+    salida = {}
+    titulo = f"Románico Maps · Casi 7.000 iglesias románicas en tu bolsillo"
+    for c in campanas():
+        archivo = f"g/{c}/index.html"
+        PAGINAS[archivo] = dict(
+            titulo=titulo, cabecera="Descargar", og_tipo="website", sitemap=False,
+            descripcion=(f"Descarga gratis Románico Maps: el mapa de las {CIFRA} iglesias románicas "
+                         "de la Península, con fotos, fichas y cómo llegar."))
+        ios, android = enlaces_campana(c)
+        js = (f"<script>(function(){{var u=navigator.userAgent||'';"
+              f"if(/bot|crawl|spider|facebookexternalhit|Facebot/i.test(u))return;"
+              f"var ios=/iPhone|iPad|iPod/.test(u)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);"
+              f"if(ios)location.replace({json.dumps(ios)});"
+              f"else if(/Android/i.test(u))location.replace({json.dumps(android)});}})();</script>")
+        cuerpo = (f"<h1>Románico Maps</h1>\n<p>Casi 7.000 iglesias románicas en tu bolsillo: mapa, fotos, "
+                  f"fichas y cómo llegar. Gratis para iPhone y Android.</p>\n"
+                  f'{marca.insignias(play_url=android, app_url=ios, sangria="")}\n'
+                  f'<p><a href="./">Conoce Románico Maps</a></p>\n{js}')
+        doc = pagina_interior(archivo, cuerpo, robots="noindex, follow")
+        # Página anidada: <base> para que logo, estilos y enlaces relativos apunten a la raíz.
+        salida[archivo] = doc.replace('<meta charset="UTF-8">', '<meta charset="UTF-8">\n<base href="/">', 1)
+    return salida
+
+
 # --- sitemap.xml y robots.txt ------------------------------------------------------------
 def lastmods_actuales():
     """Fecha de cada URL en el sitemap publicado (por ruta, con o sin www)."""
@@ -415,6 +472,7 @@ def construir():
             salida[archivo] = pagina_interior(archivo, cuerpo, con_descarga=True)
     if NEWSLETTER_WEB:
         salida.update(paginas_newsletter())
+    salida.update(paginas_campana())   # R15
     salida["sitemap.xml"] = sitemap(salida)
     salida["robots.txt"] = robots()
     salida["CNAME"] = "romanicomaps.com"
@@ -565,6 +623,7 @@ def main(argv):
     cambiados = []
     for nombre, contenido in salida.items():
         destino = RAIZ / nombre
+        destino.parent.mkdir(parents=True, exist_ok=True)
         if not destino.exists() or destino.read_text(encoding="utf-8") != contenido:
             destino.write_text(contenido, encoding="utf-8")
             cambiados.append(nombre)
