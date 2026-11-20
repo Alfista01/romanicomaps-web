@@ -1,5 +1,13 @@
 {
  "version": 1,
- "dias": [],
- "generado": "2026-11-19T22:41:10Z"
+ "dias": [
+  {
+   "fichero": "cambios-20261120T224134Z.json",
+   "desde": "2026-11-19T22:41:10Z",
+   "hasta": "2026-11-20T22:41:34Z",
+   "cambiados": 16,
+   "bajas": 0
+  }
+ ],
+ "generado": "2026-11-20T22:41:34Z"
 }
