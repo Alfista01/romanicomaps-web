@@ -1,0 +1,61 @@
+{
+ "pt": {
+  "boton": "PT",
+  "etiquetas": {
+   "Absidiolos": "Absidíolos",
+   "Arcos interiores": "Arcos interiores",
+   "Arquivoltas con relieves o historiadas": "Arquivoltas com relevos ou historiadas",
+   "Bóvedas": "Abóbadas",
+   "Canecillos": "Cachorros",
+   "Capiteles exteriores historiados": "Capitéis exteriores historiados",
+   "Capiteles interiores historiados": "Capitéis interiores historiados",
+   "Cimborrio": "Zimbório",
+   "Columnas interiores": "Colunas interiores",
+   "Cubierta": "Cobertura",
+   "Datación": "Datação",
+   "Elementos románicos": "Elementos românicos",
+   "Espadaña": "Campanário de espadana",
+   "Estado": "Estado",
+   "Exterior": "Exterior",
+   "Forma de naves": "Forma das naves",
+   "Girola": "Deambulatório",
+   "Interior": "Interior",
+   "Materiales": "Materiais",
+   "Más información para usuarios Premium": "Mais informação para utilizadores Premium",
+   "Notas de visita": "Notas de visita",
+   "Número de naves": "Número de naves",
+   "Número de ábsides": "Número de absides",
+   "Otra información relevante": "Outras informações relevantes",
+   "Pila bautismal": "Pia batismal",
+   "Pinturas murales": "Pinturas murais",
+   "Planta": "Planta",
+   "Portada de transición al gótico": "Portal de transição para o gótico",
+   "Portada románica": "Portal românico",
+   "Pórtico": "Pórtico",
+   "Tipo de ábsides": "Tipo de absides",
+   "Torres románicas": "Torres românicas",
+   "Tribuna": "Tribuna",
+   "Triforio": "Trifório",
+   "Tímpano con relieves o historiado": "Tímpano com relevos ou historiado",
+   "Vínculos estilísticos": "Relações estilísticas"
+  },
+  "locale": "pt_PT",
+  "nombre": "Português",
+  "provincias": [
+   "Portugal"
+  ],
+  "web": {
+   "Aviso legal": "Aviso legal",
+   "Descargar": "Descarregar",
+   "Ficha de Románico Digital (PDF)": "ficha do Románico Digital (PDF)",
+   "Fuente principal": "Fonte principal:",
+   "Llamada": "Mapa, fotografias e ficha completa de {n} igrejas românicas da Península Ibérica.",
+   "Mapa del románico": "Mapa do românico",
+   "Portada": "Início",
+   "Privacidad": "Privacidade",
+   "Siglo": "Século",
+   "Tipo": "Tipo",
+   "Ver en": "Ver no"
+  }
+ }
+}
