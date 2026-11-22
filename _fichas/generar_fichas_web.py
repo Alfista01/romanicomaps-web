@@ -114,6 +114,48 @@ def esc(texto) -> str:
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
+# ── Portugal (1.7.16): fichas en portugués ──────────────────────────────────
+# Las iglesias portuguesas (provincia «Portugal») se publican en portugués:
+# textos de NOMBRES-vExterior (export: `traducciones.pt`) y rótulos traducidos.
+# Si falta la traducción de un campo, se usa el castellano de ese campo.
+PROVINCIAS_PT = ("Portugal",)
+
+TEXTOS = {
+    "es": {
+        "lang": "es", "locale": "es_ES", "pais": "ES", "siglo": "Siglo",
+        "tipo": "Tipo", "datacion": "Datación", "estado": "Estado",
+        "descargar": "Descargar", "ver_en": "Ver en",
+        "cta": "Mapa, fotografías y ficha completa de {n} iglesias románicas de la Península.",
+        "fuente": "Fuente principal:", "ficha_rd": "ficha de Románico Digital (PDF)",
+        "portada": "Portada", "mapa": "Mapa del románico",
+        "privacidad": "Privacidad", "aviso": "Aviso legal",
+    },
+    "pt": {
+        "lang": "pt-PT", "locale": "pt_PT", "pais": "PT", "siglo": "Século",
+        "tipo": "Tipo", "datacion": "Datação", "estado": "Estado",
+        "descargar": "Descarregar", "ver_en": "Ver no",
+        "cta": "Mapa, fotografias e ficha completa de {n} igrejas românicas da Península Ibérica.",
+        "fuente": "Fonte principal:", "ficha_rd": "ficha do Románico Digital (PDF)",
+        "portada": "Início", "mapa": "Mapa do românico",
+        "privacidad": "Privacidade", "aviso": "Aviso legal",
+    },
+}
+
+
+def idioma_de(ig: dict) -> str:
+    return "pt" if ig.get("provincia") in PROVINCIAS_PT else "es"
+
+
+def campo(ig: dict, clave: str):
+    """Valor de un campo descriptivo en el idioma de la ficha."""
+    idioma = idioma_de(ig)
+    if idioma != "es":
+        traducido = ((ig.get("traducciones") or {}).get(idioma) or {}).get(clave)
+        if visible(traducido):
+            return traducido
+    return ig.get(clave)
+
+
 def descripcion(ig: dict) -> str:
     """Linea del preview: compuesta SOLO con campos del contrato.
 
@@ -122,9 +164,10 @@ def descripcion(ig: dict) -> str:
     lo dejaria truncado a media frase. La pagina visible si muestra la
     datacion completa, igual que la App.
     """
-    partes = [p for p in (ig.get("tipoConstruccion"),) if visible(p)]
+    tx = TEXTOS[idioma_de(ig)]
+    partes = [p for p in (campo(ig, "tipoConstruccion"),) if visible(p)]
     if ig.get("siglo"):
-        partes.append(f"Siglo {ig['siglo']}")
+        partes.append(f"{tx['siglo']} {ig['siglo']}")
     # La capitalizacion de `ciudad` se corrige en Airtable (tarea aparte), no
     # aqui: la web refleja la BD tal cual, sin capa correctora que la enmascare.
     lugar = ", ".join(p for p in (ig.get("ciudad"), ig.get("provincia")) if p)
@@ -165,7 +208,8 @@ def datos_estructurados(ig: dict, canonica: str) -> str:
     pagina ya muestra (nombre y lugar) mas las coordenadas del mapa."""
     datos = {"@context": "https://schema.org", "@type": "Church",
              "name": ig.get("nombre"), "url": canonica}
-    direccion = {"@type": "PostalAddress", "addressCountry": "ES"}
+    direccion = {"@type": "PostalAddress",
+                 "addressCountry": TEXTOS[idioma_de(ig)]["pais"]}
     if ig.get("ciudad"):
         direccion["addressLocality"] = ig["ciudad"]
     if ig.get("provincia"):
@@ -183,11 +227,12 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
     """css: ruta al CSS externo. Vacio = CSS embebido (modo muestra).
     indexable: True solo para las fichas de la tanda abierta a buscadores."""
     codigo = ig["idCode"]
+    tx = TEXTOS[idioma_de(ig)]
     canonica = url_canonica(ig)
     robots = ROBOTS_ABIERTA if indexable else ROBOTS_CERRADA
     pdf = pdf_fuente(ig)
-    fuente = (f'<p class="fuente">Fuente principal: <a href="{esc(pdf)}" rel="noopener" '
-              f'target="_blank">ficha de Románico Digital (PDF)</a></p>'
+    fuente = (f'<p class="fuente">{tx["fuente"]} <a href="{esc(pdf)}" rel="noopener" '
+              f'target="_blank">{tx["ficha_rd"]}</a></p>'
               if pdf else "")
     lugar = ", ".join(p for p in (ig.get("ciudad"), ig.get("provincia")) if p)
     estilo = (f'<link rel="stylesheet" href="{css}">' if css
@@ -201,15 +246,15 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
     play_url = marca.url_play(utm_source=marca.CAMPANA_FICHA, idCode=codigo)
     app_url = marca.url_app_store(marca.CAMPANA_FICHA)
     filas = ""
-    for etiqueta, valor in (("Tipo", ig.get("tipoConstruccion")),
-                            ("Datación", ig.get("datacion")),
-                            ("Estado", ig.get("estadoConservacion"))):
+    for etiqueta, valor in ((tx["tipo"], campo(ig, "tipoConstruccion")),
+                            (tx["datacion"], campo(ig, "datacion")),
+                            (tx["estado"], campo(ig, "estadoConservacion"))):
         if visible(valor):
             filas += (f'<div class="fila"><dt>{esc(etiqueta)}</dt>'
                       f"<dd>{esc(valor)}</dd></div>")
 
     return f"""<!DOCTYPE html>
-<html lang="es">
+<html lang="{tx['lang']}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -221,7 +266,7 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
 <link rel="canonical" href="{esc(canonica)}">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Románico Maps">
-<meta property="og:locale" content="es_ES">
+<meta property="og:locale" content="{tx['locale']}">
 <meta property="og:title" content="{esc(ig.get('nombre'))}">
 <meta property="og:description" content="{esc(descripcion(ig))}">
 <meta property="og:image" content="{esc(portada)}">
@@ -237,7 +282,7 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
 <body>
 <header class="cabecera"><div class="env barra">
   <a class="marca" href="{DOMINIO}/"><img src="/{marca.LOGO}" alt="" width="38" height="38"><span>Románico Maps</span></a>
-  <a class="btn btn--almagre" href="#descargar">Descargar</a>
+  <a class="btn btn--almagre" href="#descargar">{tx['descargar']}</a>
 </div></header>
 <main class="env">
 <p class="lugar">{esc(lugar)}</p>
@@ -246,17 +291,17 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
 <dl>{filas}</dl>
 {fuente}
 <section id="descargar" class="cta">
-  <h2>Ver en <em>Románico Maps</em></h2>
-  <p>Mapa, fotografías y ficha completa de {marca.CIFRA_IGLESIAS} iglesias románicas de la Península.</p>
+  <h2>{tx['ver_en']} <em>Románico Maps</em></h2>
+  <p>{tx['cta'].format(n=marca.CIFRA_IGLESIAS)}</p>
 {marca.insignias(raiz="/", play_url=play_url, app_url=app_url, sangria="  ")}
 </section>
 </main>
 <footer class="pie"><div class="env">
   <nav aria-label="Románico Maps">
-    <a href="{DOMINIO}/">Portada</a>
-    <a href="{DOMINIO}/mapa-romanico-espana.html">Mapa del románico</a>
-    <a href="{DOMINIO}/privacidad.html">Privacidad</a>
-    <a href="{DOMINIO}/aviso-legal.html">Aviso legal</a>
+    <a href="{DOMINIO}/">{tx['portada']}</a>
+    <a href="{DOMINIO}/mapa-romanico-espana.html">{tx['mapa']}</a>
+    <a href="{DOMINIO}/privacidad.html">{tx['privacidad']}</a>
+    <a href="{DOMINIO}/aviso-legal.html">{tx['aviso']}</a>
   </nav>
   <p>© Románico Maps · romanicomaps.com</p>
 </div></footer>
