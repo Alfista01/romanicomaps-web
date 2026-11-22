@@ -113,6 +113,20 @@ def main() -> None:
         raise SystemExit("STOPPER: el export tiene más de un 10 % menos de iglesias que el anterior")
     huellas, dia = calcular(export, anterior)
     print(publicar(dia, huellas, a.salida, a.huellas))
+    print(publicar_idiomas(export.get("idiomas") or {}, a.salida))
+
+
+def publicar_idiomas(idiomas: dict, salida: Path) -> str:
+    """Idiomas de las fichas traducidas (tabla IDIOMAS) para la app 1.7.16+:
+    romanicomaps.com/sync/idiomas.json. Solo se reescribe si cambia, para no
+    generar commits vacíos."""
+    salida.mkdir(parents=True, exist_ok=True)
+    ruta = salida / "idiomas.json"
+    texto = json.dumps(idiomas, ensure_ascii=False, sort_keys=True, indent=1)
+    if ruta.exists() and ruta.read_text(encoding="utf-8") == texto:
+        return f"idiomas: sin cambios ({', '.join(sorted(idiomas)) or 'ninguno'})"
+    ruta.write_text(texto, encoding="utf-8")
+    return f"idiomas: publicados ({', '.join(sorted(idiomas)) or 'ninguno'})"
 
 
 if __name__ == "__main__":

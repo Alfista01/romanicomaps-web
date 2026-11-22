@@ -69,5 +69,23 @@ class SyncTest(unittest.TestCase):
         self.assertEqual(len(list(self.salida.glob("cambios-*.json"))), 1)
 
 
+
+class IdiomasTest(unittest.TestCase):
+    """sync/idiomas.json: idiomas de las fichas traducidas (tabla IDIOMAS)."""
+
+    def test_publica_y_no_reescribe_si_no_cambia(self):
+        with tempfile.TemporaryDirectory() as d:
+            salida = Path(d)
+            idiomas = {"pt": {"boton": "PT", "nombre": "Português"}}
+            self.assertIn("publicados", MOD.publicar_idiomas(idiomas, salida))
+            self.assertEqual(json.loads((salida / "idiomas.json").read_text()), idiomas)
+            self.assertIn("sin cambios", MOD.publicar_idiomas(idiomas, salida))
+
+    def test_sin_idiomas_publica_vacio(self):
+        with tempfile.TemporaryDirectory() as d:
+            MOD.publicar_idiomas({}, Path(d))
+            self.assertEqual(json.loads((Path(d) / "idiomas.json").read_text()), {})
+
+
 if __name__ == "__main__":
     unittest.main()
