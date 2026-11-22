@@ -114,36 +114,60 @@ def esc(texto) -> str:
             .replace(">", "&gt;").replace('"', "&quot;"))
 
 
-# ── Portugal (1.7.16): fichas en portugués ──────────────────────────────────
-# Las iglesias portuguesas (provincia «Portugal») se publican en portugués:
-# textos de NOMBRES-vExterior (export: `traducciones.pt`) y rótulos traducidos.
-# Si falta la traducción de un campo, se usa el castellano de ese campo.
-PROVINCIAS_PT = ("Portugal",)
+# ── Fichas traducidas (Portugal, 1.7.16) ───────────────────────────────────
+# Los idiomas se configuran en Airtable (tabla IDIOMAS) y llegan en el export
+# (`idiomas`): las iglesias de las «Provincias web» de un idioma se publican en
+# ese idioma, con sus textos de NOMBRES-vExterior (`traducciones`) y los rótulos
+# de la fila de IDIOMAS. Si falta la traducción de un campo, el castellano.
+# Añadir un idioma no requiere tocar este fichero.
+IDIOMAS: dict = {}  # lo rellena main() con export["idiomas"]
 
-TEXTOS = {
-    "es": {
-        "lang": "es", "locale": "es_ES", "pais": "ES", "siglo": "Siglo",
-        "tipo": "Tipo", "datacion": "Datación", "estado": "Estado",
-        "descargar": "Descargar", "ver_en": "Ver en",
-        "cta": "Mapa, fotografías y ficha completa de {n} iglesias románicas de la Península.",
-        "fuente": "Fuente principal:", "ficha_rd": "ficha de Románico Digital (PDF)",
-        "portada": "Portada", "mapa": "Mapa del románico",
-        "privacidad": "Privacidad", "aviso": "Aviso legal",
-    },
-    "pt": {
-        "lang": "pt-PT", "locale": "pt_PT", "pais": "PT", "siglo": "Século",
-        "tipo": "Tipo", "datacion": "Datação", "estado": "Estado",
-        "descargar": "Descarregar", "ver_en": "Ver no",
-        "cta": "Mapa, fotografias e ficha completa de {n} igrejas românicas da Península Ibérica.",
-        "fuente": "Fonte principal:", "ficha_rd": "ficha do Románico Digital (PDF)",
-        "portada": "Início", "mapa": "Mapa do românico",
-        "privacidad": "Privacidade", "aviso": "Aviso legal",
-    },
+TEXTOS_ES = {
+    "lang": "es", "locale": "es_ES", "pais": "ES", "siglo": "Siglo",
+    "tipo": "Tipo", "datacion": "Datación", "estado": "Estado",
+    "descargar": "Descargar", "ver_en": "Ver en",
+    "cta": "Mapa, fotografías y ficha completa de {n} iglesias románicas de la Península.",
+    "fuente": "Fuente principal:", "ficha_rd": "ficha de Románico Digital (PDF)",
+    "portada": "Portada", "mapa": "Mapa del románico",
+    "privacidad": "Privacidad", "aviso": "Aviso legal",
+}
+
+# Columna «Web · …» de IDIOMAS → clave de TEXTOS_ES.
+CLAVES_WEB = {
+    "Descargar": "descargar", "Ver en": "ver_en", "Llamada": "cta",
+    "Fuente principal": "fuente", "Ficha de Románico Digital (PDF)": "ficha_rd",
+    "Portada": "portada", "Mapa del románico": "mapa",
+    "Privacidad": "privacidad", "Aviso legal": "aviso",
+    "Siglo": "siglo", "Tipo": "tipo",
 }
 
 
 def idioma_de(ig: dict) -> str:
-    return "pt" if ig.get("provincia") in PROVINCIAS_PT else "es"
+    for codigo, cfg in IDIOMAS.items():
+        if ig.get("provincia") in (cfg.get("provincias") or []):
+            return codigo
+    return "es"
+
+
+def textos(idioma: str) -> dict:
+    """Textos de la ficha web en [idioma]; lo que falte, en castellano."""
+    tx = dict(TEXTOS_ES)
+    cfg = IDIOMAS.get(idioma)
+    if idioma == "es" or not cfg:
+        return tx
+    for columna, clave in CLAVES_WEB.items():
+        valor = (cfg.get("web") or {}).get(columna)
+        if visible(valor):
+            tx[clave] = valor
+    etiquetas = cfg.get("etiquetas") or {}
+    for etiqueta, clave in (("Datación", "datacion"), ("Estado", "estado")):
+        if visible(etiquetas.get(etiqueta)):
+            tx[clave] = etiquetas[etiqueta]
+    locale = cfg.get("locale") or idioma
+    tx["locale"] = locale
+    tx["lang"] = locale.replace("_", "-")
+    tx["pais"] = locale.split("_")[1] if "_" in locale else idioma.upper()
+    return tx
 
 
 def campo(ig: dict, clave: str):
@@ -164,7 +188,7 @@ def descripcion(ig: dict) -> str:
     lo dejaria truncado a media frase. La pagina visible si muestra la
     datacion completa, igual que la App.
     """
-    tx = TEXTOS[idioma_de(ig)]
+    tx = textos(idioma_de(ig))
     partes = [p for p in (campo(ig, "tipoConstruccion"),) if visible(p)]
     if ig.get("siglo"):
         partes.append(f"{tx['siglo']} {ig['siglo']}")
@@ -209,7 +233,7 @@ def datos_estructurados(ig: dict, canonica: str) -> str:
     datos = {"@context": "https://schema.org", "@type": "Church",
              "name": ig.get("nombre"), "url": canonica}
     direccion = {"@type": "PostalAddress",
-                 "addressCountry": TEXTOS[idioma_de(ig)]["pais"]}
+                 "addressCountry": textos(idioma_de(ig))["pais"]}
     if ig.get("ciudad"):
         direccion["addressLocality"] = ig["ciudad"]
     if ig.get("provincia"):
@@ -227,7 +251,7 @@ def render(ig: dict, portada: str, css: str = "", indexable: bool = False) -> st
     """css: ruta al CSS externo. Vacio = CSS embebido (modo muestra).
     indexable: True solo para las fichas de la tanda abierta a buscadores."""
     codigo = ig["idCode"]
-    tx = TEXTOS[idioma_de(ig)]
+    tx = textos(idioma_de(ig))
     canonica = url_canonica(ig)
     robots = ROBOTS_ABIERTA if indexable else ROBOTS_CERRADA
     pdf = pdf_fuente(ig)
@@ -410,6 +434,8 @@ def main() -> None:
     args = ap.parse_args()
 
     datos = json.loads(args.export.read_text())
+    IDIOMAS.clear()
+    IDIOMAS.update(datos.get("idiomas") or {})
     manifiesto = json.loads(args.manifest.read_text())
     activas = [i for i in datos["iglesias"]
                if i.get("activa") == "Sí" and i.get("image01")]

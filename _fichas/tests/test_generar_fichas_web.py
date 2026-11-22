@@ -254,7 +254,28 @@ if __name__ == "__main__":
 
 
 class PortugalTest(unittest.TestCase):
-    """Portugal (1.7.16): las iglesias portuguesas se publican en portugués."""
+    """Portugal (1.7.16): las iglesias portuguesas se publican en portugués.
+    Los idiomas vienen de la tabla IDIOMAS (export["idiomas"])."""
+
+    def setUp(self):
+        MOD.IDIOMAS.clear()
+        MOD.IDIOMAS.update({"pt": {
+            "boton": "PT", "nombre": "Português", "provincias": ["Portugal"],
+            "locale": "pt_PT",
+            "etiquetas": {"Datación": "Datação", "Estado": "Estado"},
+            "web": {"Descargar": "Descarregar", "Siglo": "Século",
+                    "Llamada": "Mapa, fotografias e ficha completa de {n} igrejas.",
+                    "Ver en": "Ver no"},
+        }})
+
+    def tearDown(self):
+        MOD.IDIOMAS.clear()
+
+    def test_sin_idioma_activo_la_ficha_portuguesa_sale_en_castellano(self):
+        MOD.IDIOMAS.clear()
+        html = MOD.render(self.portuguesa(), PORTADA)
+        self.assertIn('<html lang="es">', html)
+        self.assertIn("Monasterio benedictino", html)
 
     def portuguesa(self, **extra):
         return iglesia(
