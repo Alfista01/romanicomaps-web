@@ -251,3 +251,46 @@ class SlugTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class PortugalTest(unittest.TestCase):
+    """Portugal (1.7.16): las iglesias portuguesas se publican en portugués."""
+
+    def portuguesa(self, **extra):
+        return iglesia(
+            idCode=7358, provincia="Portugal",
+            idUnico="Portugal-Marco de Canaveses (Vila Boa do Bispo)-Mosteiro",
+            nombre="Mosteiro de Santa Maria de Vila Boa do Bispo",
+            ciudad="Marco de Canaveses (Vila Boa do Bispo)",
+            tipoConstruccion="Monasterio benedictino",
+            siglo="XII",
+            traducciones={"pt": {"tipoConstruccion": "Mosteiro beneditino",
+                                 "datacion": "Século XII, consagrado em 1141"}},
+            **extra)
+
+    def test_ficha_portuguesa_en_portugues(self):
+        html = MOD.render(self.portuguesa(), PORTADA)
+        self.assertIn('<html lang="pt-PT">', html)
+        self.assertIn('content="pt_PT"', html)
+        self.assertIn("Mosteiro beneditino", html)
+        self.assertIn("Datação", html)
+        self.assertIn("Século XII, consagrado em 1141", html)
+        self.assertIn("Descarregar", html)
+        self.assertIn('"addressCountry":"PT"', html)
+        self.assertNotIn("Monasterio benedictino", html)
+
+    def test_campo_sin_traduccion_cae_al_castellano(self):
+        ig = self.portuguesa()
+        ig["estadoConservacion"] = "Bien conservada"
+        html = MOD.render(ig, PORTADA)
+        self.assertIn("Bien conservada", html)
+
+    def test_descripcion_en_portugues(self):
+        self.assertIn("Século XII", MOD.descripcion(self.portuguesa()))
+
+    def test_ficha_espanola_sin_cambios(self):
+        html = MOD.render(iglesia(), PORTADA)
+        self.assertIn('<html lang="es">', html)
+        self.assertIn("Descargar", html)
+        self.assertIn('"addressCountry":"ES"', html)
+
