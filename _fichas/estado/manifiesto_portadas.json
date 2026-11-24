@@ -1209,17 +1209,17 @@
   "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/1082-c1fb42aa74ffe594.jpg"
  },
  "1083": {
-  "bytes": 87652,
-  "final": "850x637",
-  "hash": "a45f18d6497f1ce8",
-  "objectPath": "portadas/1083-2baab563fa98195e.jpg",
-  "origen": "850x637",
-  "sourceAttachmentId": "attZ4TroecPXWKFxV",
-  "sourceFilename": "Barcelona-PUIG-REIG-Iglesia de Santa Maria de Merola-Icon_Map.jpg",
-  "sourceFingerprint": "2baab563fa98195e",
-  "sourceSize": 86437,
-  "upscaled": false,
-  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/1083-2baab563fa98195e.jpg"
+  "bytes": 126492,
+  "final": "850x570",
+  "hash": "38be5ac2cedd3005",
+  "objectPath": "portadas/1083-b92238c3b91700d1.jpg",
+  "origen": "686x460",
+  "sourceAttachmentId": "attodFFAZV2NVtxWV",
+  "sourceFilename": "Barcelona-PUIG-REIG-Iglesia de Santa Maria de Merola-Vista general y restos de la cabecera-Icon_Map.jpx",
+  "sourceFingerprint": "b92238c3b91700d1",
+  "sourceSize": 137660,
+  "upscaled": true,
+  "url": "https://pghrrhyoohmjivulbtbw.supabase.co/storage/v1/object/public/fichas-web/portadas/1083-b92238c3b91700d1.jpg"
  },
  "1084": {
   "bytes": 81699,
