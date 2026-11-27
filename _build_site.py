@@ -300,6 +300,43 @@ def faq_html():
     return "\n".join(bloques)
 
 
+# --- R19: bloque temporal con un código de canje en la portada ----------------------------
+# Sin precios. Se ve solo entre DESDE y HASTA (hora de Madrid), con doble cierre: el
+# generador deja de incluirlo pasado HASTA y, mientras siga publicado, el navegador lo
+# oculta fuera de fechas (sin JavaScript no se ve nunca). Para quitarlo: PROMO = None.
+PROMO = dict(codigo="BLACKFRIDAY", campana="blackfriday", titulo="Black Friday",
+             fechas="del 27 al 30 de noviembre",
+             desde="2026-11-27T00:00:00+01:00", hasta="2026-11-30T23:59:59+01:00")
+
+
+def bloque_promo():
+    p = PROMO
+    if not p or HOY > datetime.date.fromisoformat(p["hasta"][:10]):
+        return ""
+    # Como R15: con `pt` para que App Store Connect atribuya la descarga a la campaña `ct`.
+    ios = (f"https://apps.apple.com/app/apple-store/id{marca.APP_ID}"
+           f"?pt={APP_STORE_PT}&ct=web_bloque_{p['campana']}&mt=8")
+    android = marca.url_play(utm_source="web", utm_medium="bloque", utm_campaign=p["campana"])
+    canje_ios = f"https://apps.apple.com/redeem?ctx=offercodes&id={marca.APP_ID}&code={p['codigo']}"
+    c = esc(p["codigo"])
+    return f'''<section id="promo" class="promo" aria-label="{esc(p['titulo'])}" hidden data-desde="{p['desde']}" data-hasta="{p['hasta']}">
+  <div class="wrap">
+    <p class="rubrica">{esc(p['titulo'])} · {esc(p['fechas'])}</p>
+    <h2>3 meses de Premium <em>gratis</em></h2>
+    <p class="promo__codigo">Código <strong>{c}</strong></p>
+    <div class="promo__pasos">
+      <div><h3>En iPhone</h3><ol><li>Instala Románico Maps.</li><li><a href="{canje_ios.replace("&", "&amp;")}">Canjea el código en el App Store</a>: se abre con el código ya escrito.</li></ol></div>
+      <div><h3>En Android</h3><ol><li>Instala Románico Maps y crea tu cuenta gratuita.</li><li>En <em>Cuenta → Canjear código</em>, escribe <strong>{c}</strong>.</li></ol></div>
+    </div>
+{marca.insignias(play_url=android, app_url=ios, sangria="    ")}
+    <p class="promo__letra">Solo para quien aún no ha probado Premium. Un código por cuenta. Canjes limitados.</p>
+  </div>
+</section>
+<script>(function(){{var b=document.getElementById("promo"),n=Date.now();
+if(b&&n>=Date.parse(b.dataset.desde)&&n<=Date.parse(b.dataset.hasta))b.hidden=false;}})();</script>
+'''
+
+
 def portada():
     css = marca.css() + (SRC / "portada.css").read_text(encoding="utf-8")
     cuerpo = sin_comentario_inicial((SRC / "portada.html").read_text(encoding="utf-8"))
@@ -310,6 +347,7 @@ def portada():
         "PRECIO_PRIMER_ANIO": PRECIO_PRIMER_ANIO, "PRECIO_RENOVACION": PRECIO_RENOVACION,
         "ANIO": str(HOY.year),
         "ENLACE_NEWSLETTER": '\n      <a href="newsletter.html">Newsletter</a>' if NEWSLETTER_WEB else "",
+        "PROMO": bloque_promo(),
     }, "portada.html")
     extra = ('<link rel="preload" as="image" href="img/beato-silos-dragon.webp">\n'
              f"{FUENTES_PORTADA}\n{datos_estructurados()}\n<style>\n{css}</style>")
