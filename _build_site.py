@@ -305,8 +305,8 @@ def faq_html():
 # generador deja de incluirlo pasado HASTA y, mientras siga publicado, el navegador lo
 # oculta fuera de fechas (sin JavaScript no se ve nunca). Para quitarlo: PROMO = None.
 PROMO = dict(codigo="BLACKFRIDAY", campana="blackfriday", titulo="Black Friday",
-             fechas="del 27 al 30 de noviembre",
-             desde="2026-11-27T00:00:00+01:00", hasta="2026-11-30T23:59:59+01:00")
+             fechas="del 27 de noviembre al 1 de diciembre",
+             desde="2026-11-27T00:00:00+01:00", hasta="2026-12-01T23:59:59+01:00")
 
 
 def bloque_promo():
