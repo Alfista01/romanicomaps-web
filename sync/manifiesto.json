@@ -49,7 +49,14 @@
    "hasta": "2026-11-26T22:40:51Z",
    "cambiados": 185,
    "bajas": 0
+  },
+  {
+   "fichero": "cambios-20261128T145156Z.json",
+   "desde": "2026-11-26T22:40:51Z",
+   "hasta": "2026-11-28T14:51:56Z",
+   "cambiados": 184,
+   "bajas": 0
   }
  ],
- "generado": "2026-11-26T22:40:51Z"
+ "generado": "2026-11-28T14:51:56Z"
 }
